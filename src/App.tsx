@@ -221,7 +221,7 @@ const HubLanding = () => {
                   Available Projects
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  {Object.entries(data.projects).map(([slug, path]) => (
+                  {Object.entries(data.projects).map(([slug]) => (
                     <Link 
                       key={slug} 
                       to={`/${slug}`} 
@@ -321,7 +321,5 @@ const ProjectLayoutWrapper = ({ page }: { page: string }) => {
 
   return <Component />;
 };
-
-export default App;
 
 export default App;
