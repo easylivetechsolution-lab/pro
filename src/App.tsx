@@ -274,6 +274,9 @@ const ProjectLayoutWrapper = ({ page }: { page: string }) => {
   React.useEffect(() => {
     if (!projectSlug) return;
 
+    // Reset component when transitioning to a new route/project
+    setComponent(null);
+
     const flatMap: Record<string, string> = {};
     Object.values(PROJECT_REGISTRY).forEach(categorySet => {
       Object.assign(flatMap, categorySet.projects);
@@ -292,14 +295,35 @@ const ProjectLayoutWrapper = ({ page }: { page: string }) => {
     }
 
     const [category, folder] = targetFolder.split('/');
-    import(`./projects/${category}/${folder}/${page}.tsx`)
-      .then(module => setComponent(() => module[page] || module.default))
-      .catch(() => setComponent(() => () => (
+
+    // Vite glob module resolver logic to prevent dynamic import errors in production builds
+    const modules = import.meta.glob('./projects/**/*.tsx');
+    const targetPath = `./projects/${category}/${folder}/${page}.tsx`;
+    const loadModule = modules[targetPath];
+
+    if (loadModule) {
+      loadModule()
+        .then((module: any) => {
+          setComponent(() => module[page] || module.default);
+        })
+        .catch((err) => {
+          console.error("Vite dynamic resolution error:", err);
+          setComponent(() => () => (
+            <div style={{ padding: '40px', textAlign: 'center' }}>
+              <p>Dynamic module loading error. Please refresh.</p>
+              <Link to="/">Back to Hub</Link>
+            </div>
+          ));
+        });
+    } else {
+      console.warn(`Target path not matched in Vite manifest: ${targetPath}`);
+      setComponent(() => () => (
         <div style={{ padding: '40px', textAlign: 'center' }}>
-          <p>Failed to load the specific project view. Please check directory structure.</p>
+          <p>This page context does not exist: {targetPath}</p>
           <Link to="/">Back to Hub</Link>
         </div>
-      )));
+      ));
+    }
   }, [projectSlug, page]);
 
   if (!Component) return (
@@ -309,7 +333,8 @@ const ProjectLayoutWrapper = ({ page }: { page: string }) => {
       alignItems: 'center', 
       justifyContent: 'center',
       fontFamily: 'sans-serif',
-      color: '#64748b'
+      color: '#64748b',
+      backgroundColor: '#f8fafc'
     }}>
       <div style={{ textAlign: 'center' }}>
         <div className="spinner" style={{ border: '3px solid #f3f3f3', borderTop: '3px solid #3b82f6', borderRadius: '50%', width: '30px', height: '30px', animation: 'spin 1s linear infinite', margin: '0 auto 1rem' }}></div>
