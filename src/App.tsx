@@ -162,5 +162,3 @@ const ProjectLayoutWrapper = ({ page }: { page: string }) => {
 };
 
 export default App;
-
-export default App;
