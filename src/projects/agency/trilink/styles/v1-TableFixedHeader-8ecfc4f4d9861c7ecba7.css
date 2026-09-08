@@ -1,0 +1,1 @@
+.TableFixedHeader{color:var(--titleColor);font:var(--fontWeightSemibold) 15px/1.6 var(--fontFamily);white-space:nowrap;scroll-snap-align:center}.TableFixedHeader__container{display:flex;justify-content:center}.TableFixedHeader__content{display:flex;align-items:center;color:var(--titleColor);position:sticky;left:0;right:0}.TableFixedHeader__icon{margin-right:10px}

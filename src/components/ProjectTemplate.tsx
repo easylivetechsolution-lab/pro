@@ -1,7 +1,18 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const LandingPage = ({ title }: { title: string }) => {
+interface Feature {
+  title: string;
+  desc: string;
+}
+
+interface ProjectTemplateProps {
+  title: string;
+  subtitle?: string;
+  features?: Feature[];
+}
+
+const LandingPage: React.FC<ProjectTemplateProps> = ({ title, subtitle, features }) => {
   const { projectSlug } = useParams<{ projectSlug: string }>();
   
   // Base path for navigation within the specific project slug
@@ -59,13 +70,14 @@ const LandingPage = ({ title }: { title: string }) => {
             padding: '4rem 3rem', 
             borderRadius: '1rem', 
             border: '1px solid #e2e8f0',
-            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)'
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)',
+            marginBottom: '2rem'
           }}>
             <h2 style={{ color: '#0f172a', fontSize: '2.25rem', fontWeight: 800, marginBottom: '1.5rem' }}>
-              Project Environment: {projectSlug?.toUpperCase()}
+              {title}
             </h2>
             <p style={{ lineHeight: '1.8', color: '#475569', fontSize: '1.1rem', maxWidth: '800px', marginBottom: '2rem' }}>
-              This environment is fully isolated and ready for your custom design mockups.
+              {subtitle || 'This environment is fully isolated and ready for your custom design mockups.'}
             </p>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <div style={{ backgroundColor: '#3b82f6', color: '#ffffff', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: 600, cursor: 'pointer' }}>
@@ -73,6 +85,26 @@ const LandingPage = ({ title }: { title: string }) => {
               </div>
             </div>
         </section>
+
+          {features && features.length > 0 && (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1.5rem'
+            }}>
+              {features.map((item, idx) => (
+                <div key={idx} style={{
+                  backgroundColor: '#ffffff',
+                  padding: '2rem',
+                  borderRadius: '0.75rem',
+                  border: '1px solid #e2e8f0'
+                }}>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a', marginBottom: '0.5rem' }}>{item.title}</h3>
+                  <p style={{ color: '#64748b', lineHeight: 1.6, fontSize: '0.95rem' }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </main>
 

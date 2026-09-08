@@ -83,7 +83,7 @@ const PROJECT_REGISTRY = {
     icon: '🚀',
     description: 'Creative portfolios, marketing agencies, and startup landing pages.',
     projects: {
-      'agency-p1': 'agency/project-1',
+      'agency-trilink': 'agency/trilink',
       'agency-p2': 'agency/project-2',
       'agency-p3': 'agency/project-3',
       'agency-p4': 'agency/project-4',
