@@ -1,4 +1,13 @@
-return (
+import React from 'react';
+import { useParams } from 'react-router-dom';
+
+const LandingPage = ({ title }: { title: string }) => {
+  const { projectSlug } = useParams<{ projectSlug: string }>();
+  
+  // Base path for navigation within the specific project slug
+  const basePath = projectSlug ? `/${projectSlug}` : '';
+
+  return (
     <div style={{ 
       minHeight: '100vh', 
       width: '100vw', 
@@ -39,7 +48,7 @@ return (
         padding: '3rem 2rem', 
         boxSizing: 'border-box',
         maxWidth: '1400px',
-        margin: '0 auto' // Centers content nicely inside ultra-wide monitors, but matches modern web widths
+        margin: '0 auto'
       }}>
         <section style={{ 
           backgroundColor: '#ffffff', 
@@ -79,3 +88,6 @@ return (
       </footer>
     </div>
   );
+};
+
+export default LandingPage;
