@@ -1,5 +1,7 @@
 import React from 'react';
 import { Routes, Route, useParams, Navigate, Link } from 'react-router-dom';
+import TrilinkApp from './projects/agency/trilink/src/App';
+import './projects/agency/trilink/src/index.css';
 
 const PROJECT_REGISTRY = {
   'Real Estate': {
@@ -96,6 +98,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<HubLanding />} />
+      <Route path="/agency-trilink" element={<TrilinkApp />} />
       <Route path="/:projectSlug" element={<ProjectLayoutWrapper page="Home" />} />
       <Route path="/:projectSlug/about" element={<ProjectLayoutWrapper page="About" />} />
       <Route path="/:projectSlug/services" element={<ProjectLayoutWrapper page="Services" />} />
