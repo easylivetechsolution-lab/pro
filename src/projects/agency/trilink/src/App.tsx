@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './index.css';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ModularSolutions } from './components/ModularSolutions';

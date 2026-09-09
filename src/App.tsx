@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, useParams, Navigate, Link } from 'react-router-dom';
 import TrilinkApp from './projects/agency/trilink/src/App';
-import './projects/agency/trilink/src/index.css';
 
 const PROJECT_REGISTRY = {
   'Real Estate': {
