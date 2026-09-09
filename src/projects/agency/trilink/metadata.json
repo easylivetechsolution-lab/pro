@@ -1,0 +1,6 @@
+{
+  "name": "Trilink",
+  "description": "Financial infrastructure to grow your revenue. Accept payments, offer financial services, and implement custom revenue models with Trilink.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
