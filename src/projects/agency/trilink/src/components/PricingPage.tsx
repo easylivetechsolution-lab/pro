@@ -150,7 +150,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
         </div>
 
         {/* ========================================================================= */}
-        {/* 2. THE TWO SIGNATURE STRIPE PRICING CARDS (Standard vs Custom)             */}
+        {/* 2. THE TWO TRILINK PRICING CARDS (Standard vs Custom) */}
         {/* ========================================================================= */}
         <div className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Card 1: Standard Pay-as-you-go */}
@@ -415,7 +415,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
         </div>
 
         {/* ========================================================================= */}
-        {/* 4. FEATURES AVAILABLE OUT OF THE BOX (8 SIGNATURE STRIPE PILLARS)          */}
+        {/* 4. FEATURES AVAILABLE OUT OF THE BOX (8 TRILINK PILLARS) */}
         {/* ========================================================================= */}
         <div className="mt-24">
           <div className="max-w-2xl mb-12">

@@ -10,7 +10,7 @@ export const CustomerLogos: React.FC = () => {
       }}
     >
       {/* Infinite sliding marquee track */}
-      <div className="flex w-max items-center space-x-14 sm:space-x-20 animate-[marquee_38s_linear_infinite] hover:[animation-play-state:paused]">
+      <div className="flex w-max items-center space-x-14 sm:space-x-20 animate-marquee hover:[animation-play-state:paused]">
         {/* Set 1 */}
         <LogoSet />
         {/* Set 2 for seamless infinite loop */}

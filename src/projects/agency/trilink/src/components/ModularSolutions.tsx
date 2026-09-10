@@ -237,9 +237,8 @@ export const ModularSolutions: React.FC = () => {
               <div className="lg:col-span-5 bg-slate-950 rounded-2xl p-4 text-white shadow-lg border border-slate-800">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
                   <div className="flex items-center space-x-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-xs font-mono font-semibold text-slate-300">Trilink Terminal S1</span>
-                  </div>
+                      <span className="text-xs font-mono font-semibold text-slate-300">Trilink Terminal S1</span>
+                    </div>
                   <div className="flex space-x-1">
                     {(['USD', 'EUR', 'JPY'] as const).map((curr) => (
                       <button

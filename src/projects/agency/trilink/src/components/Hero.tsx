@@ -19,7 +19,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onGetStarted, onGoogleSignIn }) => {
   // Live ticker for Global GDP running on Trilink
-  const [tickerValue, setTickerValue] = useState('1.71179384');
+  const [tickerValue, setTickerValue] = useState('8.118604');
   const [emailInput, setEmailInput] = useState('');
   const [heroPaymentPaid, setHeroPaymentPaid] = useState(false);
   const [selectedPayTab, setSelectedPayTab] = useState<'card' | 'link' | 'apple'>('card');
@@ -69,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onGoogleSignIn }) => {
       step += 0.006;
       ctx.clearRect(0, 0, width, height);
 
-      // Create diagonal multi-layered wave ribbons reminiscent of Stripe's iconic mesh
+      // Create diagonal multi-layered wave ribbons for dynamic mesh
       const layers = [
         {
           color1: 'rgba(0, 229, 153, 0.45)', // Emerald
@@ -162,7 +162,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onGoogleSignIn }) => {
 
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-white">
-      {/* Background Animated Gradient Waves */}
+      {/* Background Animated Gradient Waves & Blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         <div className="absolute -top-32 -left-40 w-[600px] h-[600px] bg-emerald-200/40 rounded-full blur-3xl" />
         <div className="absolute top-10 right-0 w-[700px] h-[700px] bg-cyan-200/35 rounded-full blur-3xl" />
@@ -183,16 +183,10 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onGoogleSignIn }) => {
           {/* LEFT COLUMN: HERO HEADLINE, TICKER & SIGNUP INPUT                         */}
           {/* ========================================================================= */}
           <div className="lg:col-span-7">
-            {/* Eyebrow: Live GDP Ticker */}
-            <div className="inline-flex items-center space-x-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/5 border border-slate-900/10 backdrop-blur-md mb-6 hover:bg-slate-900/10 transition-colors cursor-pointer group shadow-xs">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span className="text-xs font-semibold text-slate-700">
-                Global GDP running on Trilink:
-              </span>
-              <span className="text-xs font-mono font-bold text-slate-950 tabular-nums">
+            {/* Live GDP Ticker */}
+            <div className="flex items-center space-x-2 text-xs font-semibold text-slate-600 mb-6">
+              <span>Trilink’s share of Global GDP:</span>
+              <span className="font-mono font-bold text-slate-900 tabular-nums">
                 {tickerValue}%
               </span>
             </div>
@@ -203,12 +197,12 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onGoogleSignIn }) => {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-slate-600 font-normal leading-relaxed mb-8 max-w-xl">
+            <p className="text-lg sm:text-xl text-slate-600 font-normal leading-relaxed mb-10 max-w-xl">
               Join millions of companies of all sizes—from startups to Fortune 500s—who use Trilink to accept payments, send payouts, and manage their businesses online.
             </p>
 
             {/* Quick Email Signup + Start now button */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-lg mb-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-lg mb-4 mt-6">
               <div className="relative flex-1">
                 <input
                   type="email"
@@ -229,7 +223,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onGoogleSignIn }) => {
               </button>
             </div>
 
-            {/* Google sign up & secondary links - unboxed Stripe style */}
+            {/* Google sign up & secondary links */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm sm:text-base font-medium text-slate-700 mb-2">
               <button
                 type="button"
@@ -258,7 +252,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onGoogleSignIn }) => {
           </div>
 
           {/* ========================================================================= */}
-          {/* RIGHT COLUMN: SIGNATURE STRIPE TILTED PAYMENT CHECKOUT & CARD MOCKUP      */}
+                    {/* RIGHT COLUMN: TRILINK TILTED PAYMENT CHECKOUT & CARD MOCKUP */}
           {/* ========================================================================= */}
           <div className="lg:col-span-5 relative">
             {/* Ambient background glow */}
@@ -393,7 +387,6 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onGoogleSignIn }) => {
               <div>
                 <div className="font-bold flex items-center">
                   <span>Tap to Pay approved</span>
-                  <span className="ml-1.5 w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
                 </div>
                 <div className="text-[10px] text-slate-400 font-mono mt-0.5">$14.20 · Contactless terminal</div>
               </div>
@@ -401,9 +394,6 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, onGoogleSignIn }) => {
 
             {/* Floating Card Badge 2: Instant Payout */}
             <div className="hidden sm:flex absolute -top-5 -right-6 bg-white rounded-2xl p-3 shadow-xl border border-slate-200/80 items-center space-x-2.5 text-xs text-slate-900 animate-in fade-in slide-in-from-right-4 duration-300">
-              <div className="w-7 h-7 rounded-lg bg-emerald-100 text-[#00A86B] flex items-center justify-center shrink-0">
-                <Zap className="w-4 h-4" />
-              </div>
               <div>
                 <div className="font-bold text-[11px]">Instant Payout sent</div>
                 <div className="text-[10px] font-mono text-slate-500">+$8,450.00 to JPMorgan Chase</div>

@@ -21,7 +21,7 @@ export const WhatsHappening: React.FC = () => {
       description:
         'Our annual letter explores the trends defining the internet economy—including steeper growth for newer businesses, faster international expansion, stablecoin progress, agentic commerce, and more.',
       ctaText: 'Read the letter',
-      image: 'https://images.stripeassets.com/fzn2n1nzq965/yqIFyZRGU5zDwdUsWtUyM/25b9f23c748c4d54079a09016fde59d8/annual-letter-mobile.png?w=672&q=90',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=672&auto=format&fit=crop&q=80',
       badge: 'Annual Update',
       link: '#annual-letter',
     },
@@ -31,27 +31,27 @@ export const WhatsHappening: React.FC = () => {
       description:
         'From Black Friday through Cyber Monday 2025, Trilink processed more than $40B for businesses while maintaining a 99.9999% uptime.',
       ctaText: 'See the numbers',
-      image: 'https://images.stripeassets.com/fzn2n1nzq965/6yE6G454SGCJnJgEYsS2MB/70b405a1dce904bc0c6f2698223fb966/the-happenings-bfcm-mobile.png?w=672&q=90',
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=672&auto=format&fit=crop&q=80',
       badge: 'Performance',
       link: '#bfcm',
     },
     {
       id: 'tidemark',
-      title: 'Tidemark’s vertical and SMB SaaS benchmark report.',
+      title: 'Vertical and SMB SaaS benchmark report.',
       description:
         'Learn what’s driving growth in vertical SaaS in 2025—going multiproduct, embedding fintech, and integrating AI into the core of their products.',
       ctaText: 'Get the data',
-      image: 'https://images.stripeassets.com/fzn2n1nzq965/33xcv8eCmXzMzWXicVQ4cF/83d91fa419ff8d1b9466739b4ecdcb1d/the-happenings-tidemark-mobile.png?w=672&q=90',
+      image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=672&auto=format&fit=crop&q=80',
       badge: 'Research Report',
       link: '#tidemark',
     },
     {
       id: 'shopify-interview',
-      title: 'Shopify leadership sits down with Trilink founders.',
+      title: 'Global commerce leadership sits down with Trilink founders.',
       description:
         'Hear them discuss the choices that shaped modern online commerce, the future of multi-channel checkout, and advice for founders.',
       ctaText: 'Watch conversation',
-      image: 'https://images.stripeassets.com/fzn2n1nzq965/t03tXrgvnHUPGwxYUgSxN/bd8da003434c9e9fb72c719b9edb429b/the-happenings-cheeky-pint-mobile.png?w=672&q=90',
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=672&auto=format&fit=crop&q=80',
       badge: 'Video Podcast',
       link: '#video',
     },
@@ -61,7 +61,7 @@ export const WhatsHappening: React.FC = () => {
       description:
         'New global regulations mean new monetization opportunities. Learn how Trilink helps you process direct web checkouts outside mobile app stores.',
       ctaText: 'Learn how',
-      image: 'https://images.stripeassets.com/fzn2n1nzq965/Pd2JQ7FZ1pYMIMGDwvMdV/13e7e021ca23d042da8ac07be829f7ef/the-happenings-payment-processing-mobile.png?w=672&q=90',
+      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=672&auto=format&fit=crop&q=80',
       badge: 'Regulatory Guide',
       link: '#app-stores',
     },
@@ -71,7 +71,7 @@ export const WhatsHappening: React.FC = () => {
       description:
         'Learn how stablecoin checkout taps into a new global customer base by allowing buyers to settle with digital dollars directly at checkout.',
       ctaText: 'View announcement',
-      image: 'https://images.stripeassets.com/fzn2n1nzq965/4LaZVLqDqGf9091wqUAmFp/fbe9fc307e1336b69bcd9be4ec5c4752/the-happenings-crypto-mobile.png?w=672&q=90',
+      image: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=672&auto=format&fit=crop&q=80',
       badge: 'Partnership',
       link: '#crypto',
     },
@@ -81,7 +81,7 @@ export const WhatsHappening: React.FC = () => {
       description:
         'Discover how the Agentic Commerce Protocol (ACP) empowers online stores to accept purchases from autonomous agents without redesigning stacks.',
       ctaText: 'Read documentation',
-      image: 'https://images.stripeassets.com/fzn2n1nzq965/1k7ckFceNFlxqF47hWJUlM/eaa4d8b3f8e4b76ba3dd7df7da88e099/the-happenings-agentic-mobile.png?w=672&q=90',
+      image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=672&auto=format&fit=crop&q=80',
       badge: 'Agentic Commerce',
       link: '#agentic',
     },

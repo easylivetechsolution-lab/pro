@@ -51,12 +51,14 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#00E599] selection:text-slate-950 flex flex-col">
       {/* Top Navigation */}
-      <Navbar
-        currentPage={currentPage}
-        onNavigate={handleNavigate}
-        onOpenSignIn={() => setSignInOpen(true)}
-        onOpenContactSales={() => setContactSalesOpen(true)}
-      />
+      <div className="bg-white">
+        <Navbar
+          currentPage={currentPage}
+          onNavigate={handleNavigate}
+          onOpenSignIn={() => setSignInOpen(true)}
+          onOpenContactSales={() => setContactSalesOpen(true)}
+        />
+      </div>
 
       {/* Main Page Content */}
       <main id="main-content" className="flex-1">
@@ -110,7 +112,7 @@ export default function App() {
         onNavigate={handleNavigate}
       />
 
-      {/* Signature Stripe-style Floating Sales Reps Speech Bubble & Interactive Chat */}
+      {/* Trilink Floating Sales Reps Speech Bubble & Interactive Chat */}
       <SalesChatWidget onOpenContactSales={() => setContactSalesOpen(true)} />
 
       {/* Modal Dialogs for Sign In and Contact Sales */}

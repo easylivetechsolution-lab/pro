@@ -34,7 +34,7 @@ export const SalesChatWidget: React.FC<SalesChatWidgetProps> = ({ onOpenContactS
   const quickPrompts = [
     'Custom volume pricing',
     'Platform & marketplace payouts',
-    'Migrating from Stripe or Adyen',
+    'Migrating from existing provider',
     'Request enterprise demo',
   ];
 
@@ -58,7 +58,7 @@ export const SalesChatWidget: React.FC<SalesChatWidgetProps> = ({ onOpenContactS
         reply = "Our standard pay-as-you-go rate is 2.9% + 30¢ with no monthly minimums. For businesses processing over $100k/month, we offer custom IC+ pricing, volume tiers, and multi-product discounts. Would you like our sales team to run an interchange fee analysis for you?";
       } else if (lower.includes('platform') || lower.includes('marketplace') || lower.includes('connect')) {
         reply = "Trilink Connect supports multi-party disbursements, automated seller KYC in 135+ countries, and flexible fee markups. You can test embedded components in our sandbox immediately.";
-      } else if (lower.includes('migrate') || lower.includes('stripe') || lower.includes('adyen')) {
+      } else if (lower.includes('migrate') || lower.includes('provider') || lower.includes('transfer')) {
         reply = "We offer complimentary zero-downtime card data migrations from any PCI-DSS Level 1 compliant provider. We securely transfer your customer tokens with zero friction.";
       } else if (lower.includes('demo') || lower.includes('call') || lower.includes('sales')) {
         reply = "I'd love to connect you with one of our solutions architects for a 15-minute tailored walkthrough. What is the best email address or company domain to reach you at?";
@@ -80,7 +80,7 @@ export const SalesChatWidget: React.FC<SalesChatWidgetProps> = ({ onOpenContactS
   return (
     <aside aria-label="Sales Assistance" className="fixed bottom-6 right-6 z-50 select-none">
       {/* ========================================================================= */}
-      {/* 1. COLLAPSED FLOATING STATE (Exact Stripe Speech Bubble + Chat now button) */}
+      {/* 1. COLLAPSED FLOATING STATE (Trilink Speech Bubble + Chat now button) */}
       {/* ========================================================================= */}
       {!chatOpen ? (
         <div className="flex flex-col items-end space-y-2.5">
@@ -117,7 +117,6 @@ export const SalesChatWidget: React.FC<SalesChatWidgetProps> = ({ onOpenContactS
                 </div>
 
                 <div className="flex items-center space-x-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                   <span className="text-xs font-bold text-slate-900 tracking-tight">
                     7 sales reps available
                   </span>
@@ -131,7 +130,7 @@ export const SalesChatWidget: React.FC<SalesChatWidgetProps> = ({ onOpenContactS
             </div>
           )}
 
-          {/* Signature Stripe "Chat now" dark navy button */}
+          {/* Trilink "Chat now" dark navy button */}
           <button
             type="button"
             id="btn-chat-now"
@@ -175,7 +174,6 @@ export const SalesChatWidget: React.FC<SalesChatWidgetProps> = ({ onOpenContactS
                   <span className="ml-2 text-[10px] font-semibold uppercase px-1.5 py-0.2 rounded bg-emerald-500/20 text-[#00E599]">Live</span>
                 </div>
                 <div className="text-[11px] text-slate-300 flex items-center mt-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse" />
                   Typically replies in &lt; 1 minute
                 </div>
               </div>
