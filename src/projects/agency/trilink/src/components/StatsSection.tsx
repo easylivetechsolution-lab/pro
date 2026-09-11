@@ -174,7 +174,6 @@ export const StatsSection: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
             <div className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-emerald-400 mb-3">
-              <Sparkles className="w-3.5 h-3.5" />
               <span>Reliability at Planetary Scale</span>
             </div>
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">

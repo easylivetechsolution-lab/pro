@@ -1,12 +1,15 @@
 import React from 'react';
 import { Routes, Route, useParams, Navigate, Link } from 'react-router-dom';
 import TrilinkApp from './projects/agency/trilink/src/App';
+import AureliaApp from './projects/real-estate/aurelia-estates/src/App';
+import easyliveLogo from './assets/easylive-image.png';
 
 const PROJECT_REGISTRY = {
   'Real Estate': {
     icon: '🏠',
     description: 'Property management, luxury listings, and urban apartment landing pages.',
     projects: {
+      'aurelia': 'real-estate/aurelia-estates',
       're-p1': 'real-estate/project-1',
       're-p2': 'real-estate/project-2',
       're-p3': 'real-estate/project-3',
@@ -98,6 +101,8 @@ const App = () => {
     <Routes>
       <Route path="/" element={<HubLanding />} />
       <Route path="/agency-trilink" element={<TrilinkApp />} />
+      <Route path="/aurelia" element={<AureliaApp />} />
+      <Route path="/real-estate-aurelia" element={<Navigate to="/aurelia" replace />} />
       <Route path="/:projectSlug" element={<ProjectLayoutWrapper page="Home" />} />
       <Route path="/:projectSlug/about" element={<ProjectLayoutWrapper page="About" />} />
       <Route path="/:projectSlug/services" element={<ProjectLayoutWrapper page="Services" />} />
@@ -127,8 +132,11 @@ const HubLanding = () => {
         top: 0,
         zIndex: 100
       }}>
-        <div style={{ fontWeight: 800, fontSize: '1.5rem', letterSpacing: '-0.025em', color: '#0f172a' }}>
-          PRO<span style={{ color: '#3b82f6' }}>LABS</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <img src={easyliveLogo} alt="Easylivetech Logo" style={{ height: '36px', objectFit: 'contain' }} />
+          <div style={{ fontWeight: 800, fontSize: '1.25rem', letterSpacing: '-0.025em', color: '#0f172a' }}>
+            EASYLIVETECH-<span style={{ color: '#3b82f6' }}>PROJECTS</span>
+          </div>
         </div>
         <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
           <a href="#" style={{ color: '#64748b', textDecoration: 'none', fontWeight: 500 }}>Solution</a>
@@ -162,16 +170,16 @@ const HubLanding = () => {
           fontWeight: 600,
           marginBottom: '1.5rem'
         }}>
-          Now with 40+ UI Kits
+          Easylivetech-Projects Hub
         </div>
         <h1 style={{ 
           fontSize: '3.5rem', 
           fontWeight: 800, 
           letterSpacing: '-0.05em', 
-          marginBottom: '1rem',
+          marginBottom: '1.0rem',
           color: '#0f172a'
         }}>
-          Multi-Project <span style={{ color: '#3b82f6' }}>Showcase</span>
+          Easylivetech <span style={{ color: '#3b82f6' }}>Projects</span>
         </h1>
         <p style={{ 
           color: '#64748b', 
@@ -226,7 +234,7 @@ const HubLanding = () => {
                   {Object.entries(data.projects).map(([slug]) => (
                     <Link 
                       key={slug} 
-                      to={`/${slug}`} 
+                      to={slug === 'agency-trilink' ? '/agency-trilink' : slug === 'aurelia' ? '/aurelia' : `/${slug}`} 
                       style={{ 
                         textDecoration: 'none', 
                         display: 'flex',
@@ -262,7 +270,7 @@ const HubLanding = () => {
 
       <footer style={{ textAlign: 'center', padding: '4rem 2rem', borderTop: '1px solid #e2e8f0', backgroundColor: '#ffffff' }}>
         <p style={{ color: '#94a3b8', fontSize: '0.875rem' }}>
-          &copy; {new Date().getFullYear()} PROLABS by EasyLiveTech Solutions. All rights reserved.
+          &copy; {new Date().getFullYear()} Easylivetech-Projects. All rights reserved.
         </p>
       </footer>
     </div>

@@ -16,7 +16,6 @@ export const SessionsBanner: React.FC = () => {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-6">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-emerald-300">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Trilink Sessions 2026 · On Demand</span>
               </div>
 

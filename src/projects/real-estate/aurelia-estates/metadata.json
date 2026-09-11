@@ -1,0 +1,6 @@
+{
+  "name": "Aurelia Estates",
+  "description": "Ultra-luxury international real estate platform featuring curated estates, spinning sliding agent showcase, and private collection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

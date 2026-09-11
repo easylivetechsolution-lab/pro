@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --color-gold-300: #e8d5b5;
+  --color-gold-400: #d8b88a;
+  --color-gold-500: #c5a880;
+  --color-gold-600: #aa8c65;
+  --color-dark-surface: #121316;
+  --color-dark-card: #181a1f;
+  --color-dark-border: #272a33;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: #0d0e12;
+  color: #e5e5e5;
+  overflow-x: hidden;
+}
+
+.font-serif-luxury {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-display-luxury {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0e12;
+}
+::-webkit-scrollbar-thumb {
+  background: #2b2e37;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c5a880;
+}
+
+/* 3D perspective utilities for spinning carousel */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.perspective-1400 {
+  perspective: 1400px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Deep yellow spark transition animations */
+@keyframes opticalSparkBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  35% {
+    transform: translate(-50%, -50%) scale(1.15) rotate(45deg);
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(0.95) rotate(90deg);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0) rotate(140deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkRayHorizontal {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  40% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkRayVertical {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  40% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0.2);
+    opacity: 0;
+  }
+}
+
+.animate-optical-spark {
+  animation: opticalSparkBurst 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-spark-ray-h {
+  animation: sparkRayHorizontal 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-spark-ray-v {
+  animation: sparkRayVertical 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
