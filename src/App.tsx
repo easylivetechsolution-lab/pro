@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, useParams, Navigate, Link } from 'react-router-dom';
 import TrilinkApp from './projects/agency/trilink/src/App';
 import AureliaApp from './projects/real-estate/aurelia-estates/src/App';
+import PearlviewApp from './projects/healthcare/pearlview-dental-studio/src/App';
 import easyliveLogo from './assets/easylive-image.png';
 
 const PROJECT_REGISTRY = {
@@ -21,6 +22,7 @@ const PROJECT_REGISTRY = {
     icon: '🩺',
     description: 'Medical tools, dental clinics, and health consultation platforms.',
     projects: {
+      'pearlview': 'healthcare/pearlview-dental-studio',
       'hc-supply1': 'healthcare/healthcare-supply-1',
       'hc-supply2': 'healthcare/healthcare-supply-2',
       'hc-consultation': 'healthcare/consultation',
@@ -102,6 +104,8 @@ const App = () => {
       <Route path="/" element={<HubLanding />} />
       <Route path="/agency-trilink" element={<TrilinkApp />} />
       <Route path="/aurelia" element={<AureliaApp />} />
+      <Route path="/pearlview" element={<PearlviewApp />} />
+      <Route path="/pearlview-dental" element={<Navigate to="/pearlview" replace />} />
       <Route path="/real-estate-aurelia" element={<Navigate to="/aurelia" replace />} />
       <Route path="/:projectSlug" element={<ProjectLayoutWrapper page="Home" />} />
       <Route path="/:projectSlug/about" element={<ProjectLayoutWrapper page="About" />} />
@@ -234,7 +238,7 @@ const HubLanding = () => {
                   {Object.entries(data.projects).map(([slug]) => (
                     <Link 
                       key={slug} 
-                      to={slug === 'agency-trilink' ? '/agency-trilink' : slug === 'aurelia' ? '/aurelia' : `/${slug}`} 
+                      to={slug === 'agency-trilink' ? '/agency-trilink' : slug === 'aurelia' ? '/aurelia' : slug === 'pearlview' ? '/pearlview' : `/${slug}`} 
                       style={{ 
                         textDecoration: 'none', 
                         display: 'flex',

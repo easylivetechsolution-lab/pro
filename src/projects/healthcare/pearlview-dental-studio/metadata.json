@@ -1,0 +1,6 @@
+{
+  "name": "PearlView Dental Studio",
+  "description": "Austin's premier cosmetic, restorative, and digital dentistry atelier delivering bespoke smile transformations with high-end luxury patient care.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
