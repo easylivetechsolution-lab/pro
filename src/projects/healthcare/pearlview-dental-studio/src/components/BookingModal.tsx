@@ -74,7 +74,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 Reserve Concierge Appointment
               </h3>
               <p className="text-xs text-zinc-300">
-                PearlView Dental Studio &bull; Austin, TX
+                PearlView Dental &bull; Austin, TX
               </p>
             </div>
           </div>

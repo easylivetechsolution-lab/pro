@@ -77,8 +77,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onOpenQuiz }) => {
               </div>
 
               {/* Accepting New Patients Badge */}
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200/60 text-emerald-800 text-xs font-medium">
-                <span className="inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0E282E]/5 border border-[#0E282E]/15 text-[#0E282E] text-xs font-semibold">
                 <span>Accepting new patients</span>
               </div>
             </div>
@@ -109,7 +108,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onOpenQuiz }) => {
                     &ldquo;Best dental experience of my life. Calm, caring, and stunning results.&rdquo;
                   </p>
                   <p className="text-[11px] text-[#EAD8B7] mt-1 font-semibold">
-                    &mdash; Verified Patient &bull; Austin, TX
+                    &mdash; Sarah Jenkins &bull; Austin, TX
                   </p>
                 </div>
               </div>

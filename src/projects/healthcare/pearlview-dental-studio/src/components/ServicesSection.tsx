@@ -95,75 +95,39 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
               Comprehensive Dental Care
             </h2>
             <p className="mt-3 text-sm sm:text-base text-zinc-600 max-w-xl">
-              From smile makeovers to routine checkups, explore our full range of treatments. Cards auto-flip every 4 seconds to show procedure details, and smoothly flip back to the main view whenever hovered.
+              From smile makeovers to routine checkups, explore our full range of treatments.
             </p>
           </div>
 
-          {/* Controls: Filter & 4-second auto-flip status */}
-          <div className="flex flex-col items-start md:items-end gap-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <div className="inline-flex p-1 bg-white border border-zinc-200 rounded-full shadow-2xs">
-                {(['all', 'cosmetic', 'restorative', 'ortho'] as const).map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveFilter(tab)}
-                    className={`px-3.5 py-1.5 text-xs font-semibold rounded-full capitalize transition-all cursor-pointer ${
-                      activeFilter === tab
-                        ? 'bg-[#0E282E] text-white shadow-xs'
-                        : 'text-zinc-600 hover:text-zinc-900'
-                    }`}
-                  >
-                    {tab === 'ortho' ? 'Aligners' : tab}
-                  </button>
-                ))}
-              </div>
-
-              {onNavigate && (
-                <button
-                  onClick={() => onNavigate('services')}
-                  className="px-3.5 py-1.5 text-xs font-semibold rounded-full bg-white text-[#0E282E] border border-zinc-300 hover:bg-zinc-50 cursor-pointer shadow-2xs"
-                >
-                  View All Services Page &rarr;
-                </button>
-              )}
-            </div>
-
-            {/* 4-Second Auto-Flip Status & Progress Bar */}
-            <div className="flex items-center gap-2.5 text-[11px] text-zinc-600 bg-white/90 px-3 py-1.5 rounded-xl border border-zinc-200 shadow-2xs">
-              <button
-                onClick={() => setIsAutoFlipEnabled(!isAutoFlipEnabled)}
-                className="flex items-center gap-1 font-semibold text-[#0E282E] hover:text-[#184650] cursor-pointer"
-                title={isAutoFlipEnabled ? 'Pause 4s auto-flip' : 'Resume 4s auto-flip'}
-              >
-                {isAutoFlipEnabled ? (
-                  <>
-                    <Pause className="w-3 h-3 text-[#D4AF37]" />
-                    <span>Auto-Flip: Active (4s)</span>
-                  </>
-                ) : (
-                  <>
-                    <Play className="w-3 h-3 text-emerald-600" />
-                    <span>Auto-Flip: Paused</span>
-                  </>
-                )}
-              </button>
-
-              <span className="text-zinc-300">|</span>
-
-              <span className="text-[10px] text-zinc-500 font-medium">
-                {isHovered ? 'Paused on Main View' : `Showing: ${autoFlipSide ? 'Procedure Details' : 'Main View'}`}
-              </span>
-
-              {isAutoFlipEnabled && !isHovered && (
-                <div className="w-14 h-1.5 bg-zinc-100 rounded-full overflow-hidden border border-zinc-200">
-                  <div
-                    className="h-full bg-[#0E282E] transition-all duration-100 ease-linear rounded-full"
-                    style={{ width: `${progress}%` }}
-                  />
+            {/* Controls: Filter only */}
+            <div className="flex flex-col items-start md:items-end gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex p-1 bg-white border border-zinc-200 rounded-full shadow-2xs">
+                  {(['all', 'cosmetic', 'restorative', 'ortho'] as const).map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveFilter(tab)}
+                      className={`px-3.5 py-1.5 text-xs font-semibold rounded-full capitalize transition-all cursor-pointer ${
+                        activeFilter === tab
+                          ? 'bg-[#0E282E] text-white shadow-xs'
+                          : 'text-zinc-600 hover:text-zinc-900'
+                      }`}
+                    >
+                      {tab === 'ortho' ? 'Aligners' : tab}
+                    </button>
+                  ))}
                 </div>
-              )}
+
+                {onNavigate && (
+                  <button
+                    onClick={() => onNavigate('services')}
+                    className="px-3.5 py-1.5 text-xs font-semibold rounded-full bg-white text-[#0E282E] border border-zinc-300 hover:bg-zinc-50 cursor-pointer shadow-2xs"
+                  >
+                    View All Services Page &rarr;
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
         </div>
 
         {/* 3D Flip Card Grid */}
@@ -199,8 +163,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                           {getIcon(service.iconName)}
                         </div>
 
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] text-zinc-400 font-medium">Auto-flip 4s</span>
+                        <div className="flex items-center justify-end">
                           <button
                             type="button"
                             onClick={(e) => toggleFlip(service.id, e)}
@@ -337,7 +300,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
               onClick={() => onSelectService('consultation')}
               className="whitespace-nowrap px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#0E282E] hover:bg-[#153B44] rounded-full transition-colors cursor-pointer shadow-xs"
             >
-              Request 3D Smile Consultation &rarr;
+              Request Smile Consultation &rarr;
             </button>
           </div>
         </div>

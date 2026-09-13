@@ -75,10 +75,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <div className="flex flex-col">
             <span className="font-serif text-xl tracking-tight font-semibold text-[#0E282E] flex items-center gap-1.5">
-              PearlView <span className="font-sans font-light text-sm tracking-widest text-[#4A6468] uppercase">Dental</span>
+              PearlView <span className="font-sans font-light text-sm tracking-widest text-[#4A6468] uppercase"></span>
             </span>
             <span className="text-[10px] text-zinc-500 tracking-wider uppercase font-medium">
-              Studio &bull; Austin
+             Dental
             </span>
           </div>
         </button>

@@ -41,7 +41,6 @@ export const TopBar: React.FC<TopBarProps> = ({ onNavigate }) => {
             <ShieldCheck className="w-3.5 h-3.5 text-[#88C5BE]" />
             <span>{CLINIC_INFO.insuranceNote}</span>
           </button>
-          <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#10B981]" title="Accepting new patients" />
         </div>
       </div>
     </div>
