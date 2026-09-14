@@ -617,9 +617,9 @@ export const VAULT_DOCUMENTS: VaultDoc[] = [
 ];
 
 export const LIVE_TRADE_UPDATES = [
-  '⚡ Air Cargo Dispatch: 400,000 N95 respirators cleared Frankfurt Hub (FRA) via CPT terms',
-  '🚢 Ocean Vessel MSC Savannah: 4x 40ft High-Cube containers of Nitrile Gloves en route to Port of New Orleans',
-  '✅ ISO 13485 Annual Renewal confirmed for Surgical Instruments manufacturing plant',
-  '✈️ Express Air Charter: 15,000 Rapid Diagnostic Test Kits landed at Bogota El Dorado (BOG)',
-  '📋 FDA 510(k) lot release approved for Batch #26-HM08 medical consumables'
+  'Air Cargo Dispatch: 400,000 N95 respirators cleared Frankfurt Hub (FRA) via CPT terms',
+  'Ocean Vessel MSC Savannah: 4x 40ft High-Cube containers of Nitrile Gloves en route to Port of New Orleans',
+  'ISO 13485 Annual Renewal confirmed for Surgical Instruments manufacturing plant',
+  'Express Air Charter: 15,000 Rapid Diagnostic Test Kits landed at Bogota El Dorado (BOG)',
+  'FDA 510(k) lot release approved for Batch #26-HM08 medical consumables'
 ];
