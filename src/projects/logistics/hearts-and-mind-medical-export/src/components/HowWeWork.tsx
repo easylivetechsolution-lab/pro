@@ -123,10 +123,10 @@ export const HowWeWork: React.FC<HowWeWorkProps> = ({ onQuickQuoteSubmit }) => {
         <img 
           src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1400&q=85" 
           alt="International Cargo Ship and Shipping Logistics" 
-          className="w-full h-full object-cover object-right opacity-90 filter contrast-110 saturate-110 brightness-100"
+          className="w-full h-full object-cover object-right sm:object-right opacity-60 sm:opacity-90 filter contrast-125 sm:contrast-110 saturate-100 sm:saturate-110 brightness-[0.4] sm:brightness-100 transition-all duration-300"
         />
         {/* Smooth gradients that fade the image out on the left side to keep text completely legible, but leave the cargo ship perfectly visible on the right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#040e21] via-[#040e21]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#040e21] via-[#040e21]/70 sm:via-[#040e21]/30 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#040e21] via-transparent to-[#040e21]/30" />
       </div>
 

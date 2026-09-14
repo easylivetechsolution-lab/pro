@@ -49,45 +49,45 @@ export const Footer: React.FC<FooterProps> = ({
     <footer className="bg-[#0b1b33] text-slate-300 pt-6 pb-4 border-t border-slate-800 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Newsletter Subscription Banner */}
-        <div className="mb-6 bg-gradient-to-r from-[#0c4a6e] via-[#0284c7] to-[#0369a1] rounded-lg p-3.5 sm:p-4 shadow-md text-white flex flex-col lg:flex-row items-center justify-between gap-4 relative overflow-hidden">
+                {/* Newsletter Subscription Banner */}
+        <div className="mb-6 bg-gradient-to-r from-[#0c4a6e] via-[#0284c7] to-[#0369a1] rounded-lg p-5 sm:p-4 shadow-md text-white flex flex-col lg:flex-row items-center justify-between gap-4 relative overflow-hidden">
           <div className="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
             <svg viewBox="0 0 24 24" className="w-32 h-32 fill-current">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
           </div>
           
-          <div className="max-w-md text-center lg:text-left z-10">
-            <h3 className="text-xs sm:text-sm font-bold tracking-tight">
+          <div className="max-w-md text-center lg:text-left z-10 w-full sm:w-auto">
+            <h3 className="text-sm sm:text-base font-bold tracking-tight">
               Subscribe to Our Weekly Logistics Dispatch
             </h3>
-            <p className="text-[11px] text-cyan-100">
+            <p className="text-xs sm:text-sm text-cyan-100 mt-1">
               Get FDA/CE clearance updates, CPT freight trends, and ministry tender alerts.
             </p>
           </div>
 
           <div className="w-full lg:w-auto z-10">
             {newsletterSubscribed ? (
-              <div className="bg-emerald-500/95 text-white px-4 py-2 rounded-md font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm">
+              <div className="bg-emerald-500/95 text-white px-4 py-2.5 rounded-md font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 <span>Subscribed Successfully!</span>
               </div>
             ) : (
-              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-2 w-full">
                 <input
                   type="email"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="Professional email..."
                   required
-                  className="bg-white/10 border border-white/30 rounded-md px-3 py-1.5 text-xs text-white placeholder-cyan-200 focus:outline-none focus:ring-1 focus:ring-white w-full sm:w-60 shadow-inner"
+                  className="bg-white/10 border border-white/30 rounded-md px-3.5 py-2.5 text-xs text-white placeholder-cyan-200 focus:outline-none focus:ring-1 focus:ring-white w-full sm:w-64 shadow-inner"
                 />
                 <button
                   type="submit"
-                  className="bg-white text-[#0b1b33] hover:bg-cyan-50 px-4 py-1.5 rounded-md font-bold text-xs tracking-wide transition-all shadow-sm flex items-center justify-center gap-1 whitespace-nowrap"
+                  className="bg-white text-[#0b1b33] hover:bg-cyan-50 px-5 py-2.5 rounded-md font-bold text-xs tracking-wide transition-all shadow-sm flex items-center justify-center gap-1.5 whitespace-nowrap"
                 >
                   <span>Subscribe</span>
-                  <Send className="w-3 h-3" />
+                  <Send className="w-3.5 h-3.5" />
                 </button>
               </form>
             )}

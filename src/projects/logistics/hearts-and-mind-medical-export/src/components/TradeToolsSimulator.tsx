@@ -283,15 +283,15 @@ export const TradeToolsSimulator: React.FC<TradeToolsSimulatorProps> = ({
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="bg-[#0b1b33]/80 backdrop-blur-xl border border-sky-500/30 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative text-white overflow-hidden">
+          <div className="bg-[#0b1b33]/80 backdrop-blur-xl border border-sky-500/30 rounded-3xl p-6 sm:p-12 lg:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative text-white overflow-hidden">
             {/* Background Cargo / Multimodal Logistics Image with Overlay inside the inner container */}
             <div className="absolute inset-0 z-0 pointer-events-none">
               <img
                 src={multimodalLogisticsImg}
                 alt="Multimodal Logistics Background"
-                className="w-full h-full object-cover object-center opacity-85 scale-100 filter brightness-100 contrast-110 saturate-110"
+                className="w-full h-full object-cover object-right sm:object-center opacity-50 sm:opacity-85 filter brightness-[0.3] sm:brightness-100 contrast-125 sm:contrast-110 saturate-100 sm:saturate-110 transition-all duration-300"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-[#061429]/70 via-[#0b1b33]/45 to-[#071324]/75" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#061429]/90 sm:from-[#061429]/70 via-[#0b1b33]/60 sm:via-[#0b1b33]/45 to-[#071324]/90 sm:to-[#071324]/75" />
             </div>
 
             <div className="relative z-10">

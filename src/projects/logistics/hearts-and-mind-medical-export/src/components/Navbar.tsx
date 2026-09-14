@@ -220,13 +220,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             {/* Mobile Menu Button */}
+          <div className="flex items-center lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100"
+              className="p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors focus:outline-none"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
+          </div>
           </div>
         </div>
 
@@ -237,7 +239,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 shadow-lg overflow-hidden"
+              className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 shadow-xl overflow-hidden absolute top-full left-0 right-0 z-50"
             >
               <div className="flex flex-col gap-2">
                 {navItems.map((item) => (

@@ -170,7 +170,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800 font-['Plus_Jakarta_Sans',sans-serif] relative">
+    <div className="w-full min-h-screen bg-[#f8fafc] text-slate-800 font-['Plus_Jakarta_Sans',sans-serif] relative overflow-x-hidden">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#0b1b33] text-white px-5 py-2.5 rounded-full shadow-2xl border border-cyan-400/40 text-xs font-semibold flex items-center gap-2 animate-bounce">
