@@ -3,6 +3,7 @@ import { Routes, Route, useParams, Navigate, Link } from 'react-router-dom';
 import TrilinkApp from './projects/agency/trilink/src/App';
 import AureliaApp from './projects/real-estate/aurelia-estates/src/App';
 import PearlviewApp from './projects/healthcare/pearlview-dental-studio/src/App';
+import HeartsAndMindApp from './projects/logistics/hearts-and-mind-medical-export/src/App';
 import easyliveLogo from './assets/easylive-image.png';
 
 const PROJECT_REGISTRY = {
@@ -56,6 +57,7 @@ const PROJECT_REGISTRY = {
     icon: '🚛',
     description: 'Supply chain tracking, freight management, and delivery services.',
     projects: {
+      'hearts-and-mind': 'logistics/hearts-and-mind-medical-export',
       'log-p1': 'logistics/project-1',
       'log-p2': 'logistics/project-2',
       'log-p3': 'logistics/project-3',
@@ -105,6 +107,9 @@ const App = () => {
       <Route path="/agency-trilink" element={<TrilinkApp />} />
       <Route path="/aurelia" element={<AureliaApp />} />
       <Route path="/pearlview" element={<PearlviewApp />} />
+      <Route path="/hearts-and-mind" element={<HeartsAndMindApp />} />
+      <Route path="/hearts-and-mind-medical-export" element={<Navigate to="/hearts-and-mind" replace />} />
+      <Route path="/logistics-hearts-and-mind" element={<Navigate to="/hearts-and-mind" replace />} />
       <Route path="/pearlview-dental" element={<Navigate to="/pearlview" replace />} />
       <Route path="/real-estate-aurelia" element={<Navigate to="/aurelia" replace />} />
       <Route path="/:projectSlug" element={<ProjectLayoutWrapper page="Home" />} />
@@ -238,7 +243,17 @@ const HubLanding = () => {
                   {Object.entries(data.projects).map(([slug]) => (
                     <Link 
                       key={slug} 
-                      to={slug === 'agency-trilink' ? '/agency-trilink' : slug === 'aurelia' ? '/aurelia' : slug === 'pearlview' ? '/pearlview' : `/${slug}`} 
+                      to={
+                        slug === 'agency-trilink'
+                          ? '/agency-trilink'
+                          : slug === 'aurelia'
+                          ? '/aurelia'
+                          : slug === 'pearlview'
+                          ? '/pearlview'
+                          : slug === 'hearts-and-mind'
+                          ? '/hearts-and-mind'
+                          : `/${slug}`
+                      } 
                       style={{ 
                         textDecoration: 'none', 
                         display: 'flex',

@@ -1,0 +1,6 @@
+{
+  "name": "Hearts and Mind Medical Export LLC",
+  "description": "Global B2B medical supply distribution and international trade logistics platform connecting verified manufacturers with healthcare systems worldwide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
