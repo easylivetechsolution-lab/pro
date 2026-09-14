@@ -186,12 +186,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* RFQ Basket Quick Button */}
             <button
               id="rfq-basket-button"
               onClick={onOpenRfq}
-              className="relative flex items-center gap-2 px-3 py-2 text-sm font-semibold text-[#0b1b33] bg-slate-100 hover:bg-slate-200 rounded-lg transition-all border border-slate-200"
+              className="relative flex items-center gap-1.5 px-2.5 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-[#0b1b33] bg-slate-100 hover:bg-slate-200 rounded-lg transition-all border border-slate-200 shrink-0"
               title="View Request For Quote Basket"
             >
               <ShoppingBag className="w-4 h-4 text-[#0284c7]" />
@@ -212,23 +212,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="client-portal-button"
               onClick={() => onOpenPortal('buyer')}
-              className="flex items-center gap-2 px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#0b1b33] hover:bg-[#122849] rounded-lg shadow-sm transition-all group"
+              className="hidden xs:flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#0b1b33] hover:bg-[#122849] rounded-lg shadow-sm transition-all group shrink-0"
             >
               <Lock className="w-3.5 h-3.5 text-cyan-400 group-hover:rotate-12 transition-transform" />
-              <span>Client Portal</span>
+              <span className="hidden md:inline">Client Portal</span>
+              <span className="md:hidden">Portal</span>
               <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
             </button>
 
             {/* Mobile Menu Button */}
-          <div className="flex items-center lg:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors focus:outline-none"
-              aria-label="Toggle navigation menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+            <div className="flex items-center lg:hidden shrink-0">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-1.5 sm:p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors focus:outline-none"
+                aria-label="Toggle navigation menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
 
