@@ -137,11 +137,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-3 cursor-pointer group"
           >
             {/* Real Logo Image */}
-            <div className="relative w-11 h-11 bg-white rounded-xl flex items-center justify-center shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform duration-300 overflow-hidden border border-slate-200">
+            <div className="relative w-28 h-28 -my-6 flex items-center justify-center group-hover:scale-105 transition-transform duration-300 overflow-hidden">
               <img 
                 src={logoImg} 
                 alt="Hearts and Mind Medical Export LLC Logo" 
-                className="w-full h-full object-contain p-1"
+                className="w-full h-full object-contain"
               />
             </div>
 

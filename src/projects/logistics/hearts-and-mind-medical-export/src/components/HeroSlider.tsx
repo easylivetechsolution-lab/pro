@@ -137,14 +137,14 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.45, delay: 0.16 }}
-              className="text-sm sm:text-base md:text-lg text-slate-200 font-normal leading-relaxed mb-8 max-w-2xl drop-shadow-sm text-balance"
+              className="text-sm sm:text-base md:text-lg text-slate-200 font-normal leading-relaxed mb-6 max-w-2xl drop-shadow-sm text-balance"
             >
               {slide.subtitle}
             </motion.p>
           </AnimatePresence>
 
           {/* CTAs (Side by Side) */}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4 mt-8 sm:mt-10">
             <button
               id="hero-request-quote-button"
               onClick={onRequestQuote}
