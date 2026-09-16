@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --color-brand-gold: #e29d52;
+  --color-brand-gold-hover: #cf8739;
+  --color-brand-gold-light: #fdf3e7;
+  --color-brand-gold-dark: #8e5821;
+  --color-brand-dark: #0e1013;
+  --color-brand-surface: #14171d;
+  --color-brand-card: #181c24;
+  --color-brand-border: #262c38;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #0e1013;
+}
+::-webkit-scrollbar-thumb {
+  background: #272d3b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e29d52;
+}
+
+/* Hide scrollbar for clean horizontal scrolls */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes category-glide {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-category-glide {
+  display: flex;
+  width: max-content;
+  animation: category-glide 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-category-glide:hover {
+  animation-play-state: paused;
+}
+

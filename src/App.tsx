@@ -4,6 +4,7 @@ import TrilinkApp from './projects/agency/trilink/src/App';
 import AureliaApp from './projects/real-estate/aurelia-estates/src/App';
 import PearlviewApp from './projects/healthcare/pearlview-dental-studio/src/App';
 import HeartsAndMindApp from './projects/logistics/hearts-and-mind-medical-export/src/App';
+import MarkwellApp from './projects/ecommerce/markwell furniture/src/App';
 import easyliveLogo from './assets/easylive-image.png';
 
 const PROJECT_REGISTRY = {
@@ -35,6 +36,7 @@ const PROJECT_REGISTRY = {
     icon: '🛍️',
     description: 'Single product stores for furniture, books, and skincare products.',
     projects: {
+      'markwell': 'ecommerce/markwell furniture',
       'eco-furniture1': 'ecommerce/furniture-1',
       'eco-furniture2': 'ecommerce/furniture-2',
       'eco-book1': 'ecommerce/book-1',
@@ -108,6 +110,8 @@ const App = () => {
       <Route path="/aurelia" element={<AureliaApp />} />
       <Route path="/pearlview" element={<PearlviewApp />} />
       <Route path="/hearts-and-mind" element={<HeartsAndMindApp />} />
+      <Route path="/markwell/*" element={<MarkwellApp />} />
+      <Route path="/markwell" element={<MarkwellApp />} />
       <Route path="/hearts-and-mind-medical-export" element={<Navigate to="/hearts-and-mind" replace />} />
       <Route path="/logistics-hearts-and-mind" element={<Navigate to="/hearts-and-mind" replace />} />
       <Route path="/pearlview-dental" element={<Navigate to="/pearlview" replace />} />
@@ -252,6 +256,8 @@ const HubLanding = () => {
                           ? '/pearlview'
                           : slug === 'hearts-and-mind'
                           ? '/hearts-and-mind'
+                          : slug === 'markwell'
+                          ? '/markwell'
                           : `/${slug}`
                       } 
                       style={{ 

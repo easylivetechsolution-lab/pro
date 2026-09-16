@@ -1,0 +1,6 @@
+{
+  "name": "MarkWell - Premium Furniture Solutions",
+  "description": "Premium office, ergonomic, and handcrafted furniture for modern workspaces, businesses, and homes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
