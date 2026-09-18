@@ -130,12 +130,20 @@ export const FarmsAndEstates: React.FC<FarmsAndEstatesProps> = ({
 
   // Initialize Real Leaflet Map with World View as Default
   useEffect(() => {
-    if (!mapContainerRef.current || mapInstanceRef.current) return;
-
     const container = mapContainerRef.current;
-    if (container.clientWidth === 0 || container.clientHeight === 0) {
-      container.style.width = '100%';
-      container.style.height = '100%';
+    if (!container) return;
+
+    // StrictMode / Remount safety: Remove existing instance and clear leaflet DOM metadata
+    if (mapInstanceRef.current) {
+      try {
+        mapInstanceRef.current.remove();
+      } catch {
+        // Safe catch if already disposed
+      }
+      mapInstanceRef.current = null;
+    }
+    if ((container as unknown as { _leaflet_id?: unknown })._leaflet_id) {
+      delete (container as unknown as { _leaflet_id?: unknown })._leaflet_id;
     }
 
     const map = L.map(container, {
@@ -148,21 +156,35 @@ export const FarmsAndEstates: React.FC<FarmsAndEstatesProps> = ({
       attributionControl: false,
     });
 
-    // Real high-definition satellite imagery
+    // High-definition satellite imagery with standard fallback
     const satelliteUrl =
       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-    L.tileLayer(satelliteUrl, { maxZoom: 18 }).addTo(map);
+    const satelliteLayer = L.tileLayer(satelliteUrl, { maxZoom: 18 });
+    satelliteLayer.addTo(map);
+
+    // If ArcGIS tiles encounter network/CORS error in local environments, switch to fallback
+    satelliteLayer.on('tileerror', () => {
+      if (!map.hasLayer(satelliteLayer)) return;
+      map.removeLayer(satelliteLayer);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 18,
+        subdomains: 'abcd',
+      }).addTo(map);
+    });
 
     mapInstanceRef.current = map;
 
-    // Trigger invalidateSize to fit container cleanly
-    const timers = [50, 150, 300, 600].map((delay) =>
-      setTimeout(() => {
-        if (mapInstanceRef.current) {
-          mapInstanceRef.current.invalidateSize();
-        }
-      }, delay)
-    );
+    // ResizeObserver ensures map fits even if dimensions compute asynchronously in local browser
+    const resizeObserver = new ResizeObserver(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    });
+    resizeObserver.observe(container);
+
+    // Initial resize ticks
+    const t1 = setTimeout(() => map.invalidateSize(), 100);
+    const t2 = setTimeout(() => map.invalidateSize(), 400);
 
     // Add Real Location Teardrop Pins with onHover Information Popup
     GLOBAL_HUBS.forEach((hub) => {
@@ -224,10 +246,19 @@ export const FarmsAndEstates: React.FC<FarmsAndEstatesProps> = ({
     });
 
     return () => {
-      timers.forEach(clearTimeout);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      resizeObserver.disconnect();
       if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove();
+        try {
+          mapInstanceRef.current.remove();
+        } catch {
+          // Safe disposal
+        }
         mapInstanceRef.current = null;
+      }
+      if (container && (container as unknown as { _leaflet_id?: unknown })._leaflet_id) {
+        delete (container as unknown as { _leaflet_id?: unknown })._leaflet_id;
       }
     };
   }, []);

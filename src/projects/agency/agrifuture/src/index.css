@@ -59,8 +59,6 @@
 }
 
 /* Leaflet Real Map Styling */
-@import "leaflet/dist/leaflet.css";
-
 .leaflet-container {
   background: #113525 !important;
   font-family: inherit;
