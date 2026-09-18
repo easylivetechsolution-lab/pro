@@ -5,14 +5,17 @@ import AureliaApp from './projects/real-estate/aurelia-estates/src/App';
 import PearlviewApp from './projects/healthcare/pearlview-dental-studio/src/App';
 import HeartsAndMindApp from './projects/logistics/hearts-and-mind-medical-export/src/App';
 import MarkwellApp from './projects/ecommerce/markwell furniture/src/App';
+import FirmansApp from './projects/real-estate/firmans-home-exterior-and-interior-remodeling/src/App';
+import AgrifutureApp from './projects/agency/agrifuture/src/App';
 import easyliveLogo from './assets/easylive-image.png';
 
 const PROJECT_REGISTRY = {
-  'Real Estate': {
+    'Real Estate': {
     icon: '🏠',
     description: 'Property management, luxury listings, and urban apartment landing pages.',
     projects: {
       'aurelia': 'real-estate/aurelia-estates',
+      'firmans': 'real-estate/firmans-home-exterior-and-interior-remodeling',
       're-p1': 'real-estate/project-1',
       're-p2': 'real-estate/project-2',
       're-p3': 'real-estate/project-3',
@@ -32,7 +35,7 @@ const PROJECT_REGISTRY = {
       'hc-advice': 'healthcare/healthcare-advice',
     }
   },
-  'Ecommerce': {
+        'Ecommerce': {
     icon: '🛍️',
     description: 'Single product stores for furniture, books, and skincare products.',
     projects: {
@@ -89,11 +92,12 @@ const PROJECT_REGISTRY = {
       'gym-p5': 'gym/project-5',
     }
   },
-  'Agency': {
+    'Agency': {
     icon: '🚀',
     description: 'Creative portfolios, marketing agencies, and startup landing pages.',
     projects: {
       'agency-trilink': 'agency/trilink',
+      'agrifuture': 'agency/agrifuture',
       'agency-p2': 'agency/project-2',
       'agency-p3': 'agency/project-3',
       'agency-p4': 'agency/project-4',
@@ -112,6 +116,10 @@ const App = () => {
       <Route path="/hearts-and-mind" element={<HeartsAndMindApp />} />
       <Route path="/markwell/*" element={<MarkwellApp />} />
       <Route path="/markwell" element={<MarkwellApp />} />
+      <Route path="/firmans/*" element={<FirmansApp />} />
+      <Route path="/firmans" element={<FirmansApp />} />
+      <Route path="/agrifuture/*" element={<AgrifutureApp />} />
+      <Route path="/agrifuture" element={<AgrifutureApp />} />
       <Route path="/hearts-and-mind-medical-export" element={<Navigate to="/hearts-and-mind" replace />} />
       <Route path="/logistics-hearts-and-mind" element={<Navigate to="/hearts-and-mind" replace />} />
       <Route path="/pearlview-dental" element={<Navigate to="/pearlview" replace />} />

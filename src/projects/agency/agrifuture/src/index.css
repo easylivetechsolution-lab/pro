@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-display: 'Cinzel', 'Playfair Display', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-agri-dark: #071911;
+  --color-agri-deep: #041009;
+  --color-agri-surface: #0c261b;
+  --color-agri-card: #0e2f21;
+  --color-agri-gold: #c39953;
+  --color-agri-gold-light: #d8b06d;
+  --color-agri-light: #f7f6f0;
+  --color-agri-cream: #eae7dc;
+  --color-agri-border: rgba(195, 153, 83, 0.25);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: #041009;
+    color: #e5e9e1;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-serif-heading {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom delicate glassmorphism and fine agricultural grid effects */
+.agri-gradient-dark {
+  background: linear-gradient(180deg, #071911 0%, #041009 100%);
+}
+
+.agri-card-glow {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(34, 197, 94, 0.08);
+}
+
+.agri-gold-glow {
+  box-shadow: 0 4px 20px -2px rgba(195, 153, 83, 0.25);
+}
+
+/* Custom styled subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #041009;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a4231;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c39953;
+}
+
+/* Leaflet Real Map Styling */
+@import "leaflet/dist/leaflet.css";
+
+.leaflet-container {
+  background: #113525 !important;
+  font-family: inherit;
+}
+
+.leaflet-tile-pane {
+  filter: brightness(1.08) contrast(1.06) saturate(1.15);
+}
+
+.leaflet-popup-content-wrapper {
+  background: #071f14 !important;
+  color: #fff !important;
+  border: 1px solid rgba(223, 197, 153, 0.5) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7) !important;
+}
+
+.leaflet-popup-tip {
+  background: #071f14 !important;
+}
+
+

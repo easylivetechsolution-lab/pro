@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-script: "Caveat", "Alex Brush", cursive;
+  --color-gold-200: #fde8b3;
+  --color-gold-300: #fbd686;
+  --color-gold-400: #f3c363;
+  --color-gold-500: #e5a93c;
+  --color-gold-600: #d4953b;
+  --color-gold-700: #b87b22;
+  --color-navy-950: #070d14;
+  --color-navy-900: #0b131b;
+  --color-navy-850: #0e1824;
+  --color-navy-800: #111c28;
+  --color-navy-700: #18283a;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+.gold-text-gradient {
+  background: linear-gradient(135deg, #fce5af 0%, #f3c363 45%, #d89633 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+

@@ -1,0 +1,6 @@
+{
+  "name": "AgriFuture - Sustainable Agriculture & Global Impact",
+  "description": "Growing What's Next. A high-end sustainable agriculture enterprise cultivating premium crops, smart farm intelligence, global export logistics, and regenerative land stewardship.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
