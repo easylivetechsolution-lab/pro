@@ -109,7 +109,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenVideo }) => {
       </div>
 
       {/* Slide Navigation Arrow Controls (Sides) */}
-      <div className="absolute inset-y-0 left-3 right-3 sm:left-6 sm:right-6 z-20 flex items-center justify-between pointer-events-none">
+      <div className="absolute inset-y-0 left-3 right-3 sm:left-6 sm:right-6 z-20 hidden sm:flex items-center justify-between pointer-events-none">
         <button
           onClick={handlePrevSlide}
           className="pointer-events-auto w-10 h-10 rounded-full bg-black/40 hover:bg-[#C07848] text-white hover:text-white border border-white/20 hover:border-[#C07848] backdrop-blur-md flex items-center justify-center transition-all duration-200 shadow-lg cursor-pointer"
