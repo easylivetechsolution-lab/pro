@@ -380,13 +380,12 @@ export const AgentCarousel: React.FC<AgentCarouselProps> = ({ agents, onSelectAg
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
-              <span className="w-8 h-[2px] bg-[#c5a880]" />
               <span className="text-[11px] font-semibold tracking-[0.25em] text-[#c5a880] uppercase">
                 GLOBAL PRIVATE CLIENT ADVISORS
               </span>
             </div>
             <h2 className="font-serif-luxury text-3xl md:text-5xl lg:text-6xl text-white font-normal tracking-tight">
-              Meet Our Company Agents
+              Meet Our Agents
             </h2>
             <p className="text-sm md:text-base text-[#9aa1b0] max-w-xl font-light">
               Distinguished advisors managing high-net-worth acquisitions across the world’s most coveted postcodes. Direct contact details and confidential consultations.

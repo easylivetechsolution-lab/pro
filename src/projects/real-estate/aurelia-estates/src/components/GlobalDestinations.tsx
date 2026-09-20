@@ -18,17 +18,15 @@ export const GlobalDestinations: React.FC<GlobalDestinationsProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-14">
           <div className="lg:col-span-8 space-y-4">
             <div className="flex items-center space-x-3">
-              <span className="w-8 h-[2px] bg-[#c5a880]" />
               <span className="text-[11px] font-semibold tracking-[0.25em] text-[#c5a880] uppercase">
                 GLOBAL DESTINATIONS
               </span>
             </div>
             <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-normal tracking-tight">
-              Iconic Places. <br className="hidden sm:inline" />
-              Timeless Value.
+              Properties Worth Seeing
             </h2>
             <p className="text-[#9fa6b5] text-base md:text-lg font-light max-w-2xl leading-relaxed">
-              From coastal retreats to vibrant cities and mountain sanctuaries, we help you find the perfect place — wherever your journey leads.
+              Find Your Next Home
             </p>
           </div>
 

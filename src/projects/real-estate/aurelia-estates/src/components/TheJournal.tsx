@@ -15,13 +15,12 @@ export const TheJournal: React.FC<TheJournalProps> = ({ articles, onSelectArticl
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
-              <span className="w-8 h-[2px] bg-[#c5a880]" />
               <span className="text-[11px] font-semibold tracking-[0.25em] text-[#c5a880] uppercase">
                 MARKET INSIGHTS
               </span>
             </div>
             <h2 className="font-serif-luxury text-3xl md:text-5xl text-white font-normal tracking-tight">
-              The Journal
+              Real Estate Journal
             </h2>
             <p className="text-sm md:text-base text-[#9fa6b5] max-w-xl font-light">
               Market trends, destination guides, and expert insights for the modern property buyer.

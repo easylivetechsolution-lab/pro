@@ -47,14 +47,16 @@ export const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
-              <span className="w-8 h-[2px] bg-[#c5a880]" />
               <span className="text-[11px] font-semibold tracking-[0.25em] text-[#c5a880] uppercase">
-                FEATURED PROPERTIES
+                Explore Our Properties
               </span>
             </div>
             <h2 className="font-serif-luxury text-3xl md:text-5xl text-white font-normal tracking-tight">
-              Extraordinary Homes Around the World
+              Featured Properties
             </h2>
+            <p className="text-sm md:text-base text-[#9fa6b5] max-w-xl font-light">
+              Explore homes we've selected from locations around the world.
+            </p>
           </div>
 
           <div className="flex items-center space-x-6">

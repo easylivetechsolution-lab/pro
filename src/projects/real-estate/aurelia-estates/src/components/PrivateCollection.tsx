@@ -13,14 +13,13 @@ export const PrivateCollection: React.FC<PrivateCollectionProps> = ({ onDiscover
           {/* Left Text Block matching screenshot */}
           <div className="lg:col-span-5 space-y-6">
             <div className="flex items-center space-x-3">
-              <span className="w-8 h-[2px] bg-[#c5a880]" />
               <span className="text-[11px] font-semibold tracking-[0.25em] text-[#c5a880] uppercase">
                 PRIVATE COLLECTION
               </span>
             </div>
 
             <h2 className="font-serif-luxury text-4xl md:text-5xl lg:text-6xl text-white font-normal leading-tight tracking-tight">
-              Off-Market Homes
+              Off-Market Properties
             </h2>
 
             <p className="text-[#a4abb8] text-base leading-relaxed font-light">

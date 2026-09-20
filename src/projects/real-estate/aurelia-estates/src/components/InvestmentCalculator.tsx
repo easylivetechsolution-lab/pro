@@ -52,13 +52,12 @@ export const InvestmentCalculator: React.FC<InvestmentCalculatorProps> = ({
           {/* Left Column: Explanatory & Controls */}
           <div className="lg:col-span-5 space-y-5">
             <div className="flex items-center space-x-3">
-              <span className="w-8 h-[2px] bg-[#c5a880]" />
               <span className="text-[11px] font-semibold tracking-[0.25em] text-[#c5a880] uppercase">
                 PORTFOLIO ADVISORY
               </span>
             </div>
             <h2 className="font-serif-luxury text-3xl md:text-5xl text-white font-normal tracking-tight">
-              Estate Financing & Wealth Analysis
+              Financing & Property Advice
             </h2>
             <p className="text-sm md:text-base text-[#9aa1b0] font-light leading-relaxed">
               Model private bank financing, liquidity requirements, and luxury carrying metrics tailored to global family offices and international asset holders.

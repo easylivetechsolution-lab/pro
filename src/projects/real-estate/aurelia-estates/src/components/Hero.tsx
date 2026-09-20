@@ -74,9 +74,8 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="max-w-3xl space-y-5 pt-8 md:pt-14">
           {/* Eyebrow with gold horizontal accent line */}
           <div className="flex items-center space-x-3">
-            <span className="w-10 h-[2px] bg-[#c5a880]" />
             <span className="text-[11px] md:text-xs font-semibold tracking-[0.28em] text-[#d8b88a] uppercase">
-              LUXURY REAL ESTATE WORLDWIDE
+              REAL ESTATE & PROPERTIES
             </span>
           </div>
 
@@ -88,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-[#d4d7e0] font-light tracking-wide max-w-xl">
-            Exceptional homes. Remarkable places.
+            Explore exceptional homes and properties in some of the world's most sought-after locations.
           </p>
 
           {/* Action CTAs */}
