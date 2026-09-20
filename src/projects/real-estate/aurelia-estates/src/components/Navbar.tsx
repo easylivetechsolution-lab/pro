@@ -90,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onNavigatePage?.('home');
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
-          className="flex flex-col items-start group focus:outline-none lg:-ml-3"
+          className="flex flex-col items-start group focus:outline-none lg:-ml-3 mr-6 xl:mr-12 shrink-0"
         >
           <span className="font-display-luxury text-xl md:text-2xl tracking-[0.28em] font-medium text-white group-hover:text-[#d8b88a] transition-colors">
             AURELIA
