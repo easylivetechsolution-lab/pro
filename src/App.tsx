@@ -7,6 +7,7 @@ import HeartsAndMindApp from './projects/logistics/hearts-and-mind-medical-expor
 import MarkwellApp from './projects/ecommerce/markwell furniture/src/App';
 import FirmansApp from './projects/real-estate/firmans-home-exterior-and-interior-remodeling/src/App';
 import AgrifutureApp from './projects/agency/agrifuture/src/App';
+import AetherCleanApp from './projects/professional-services/3d-luxury-cleaning/src/App';
 import easyliveLogo from './assets/easylive-image.png';
 
 const PROJECT_REGISTRY = {
@@ -49,8 +50,9 @@ const PROJECT_REGISTRY = {
   },
   'Professional Services': {
     icon: '⚖️',
-    description: 'Legal firms, accounting practices, and financial planning suites.',
+    description: 'Legal firms, accounting practices, luxury sanitization, and financial planning suites.',
     projects: {
+      'Aether-clean': 'professional-services/3d-luxury-cleaning',
       'prof-law': 'professional-services/law-firm',
       'prof-accounting': 'professional-services/accounting',
       'prof-brokerage': 'professional-services/real-estate-brokerage',
@@ -120,6 +122,10 @@ const App = () => {
       <Route path="/firmans" element={<FirmansApp />} />
       <Route path="/agrifuture/*" element={<AgrifutureApp />} />
       <Route path="/agrifuture" element={<AgrifutureApp />} />
+      <Route path="/Aether-clean/*" element={<AetherCleanApp />} />
+      <Route path="/Aether-clean" element={<AetherCleanApp />} />
+      <Route path="/aether-clean/*" element={<Navigate to="/Aether-clean" replace />} />
+      <Route path="/aether-clean" element={<Navigate to="/Aether-clean" replace />} />
       <Route path="/hearts-and-mind-medical-export" element={<Navigate to="/hearts-and-mind" replace />} />
       <Route path="/logistics-hearts-and-mind" element={<Navigate to="/hearts-and-mind" replace />} />
       <Route path="/pearlview-dental" element={<Navigate to="/pearlview" replace />} />
@@ -266,6 +272,12 @@ const HubLanding = () => {
                           ? '/hearts-and-mind'
                           : slug === 'markwell'
                           ? '/markwell'
+                          : slug === 'firmans'
+                          ? '/firmans'
+                          : slug === 'agrifuture'
+                          ? '/agrifuture'
+                          : slug.toLowerCase() === 'aether-clean'
+                          ? '/Aether-clean'
                           : `/${slug}`
                       } 
                       style={{ 

@@ -1,0 +1,6 @@
+{
+  "name": "AetherClean — 3D Luxury Cleaning & AI Concierge",
+  "description": "Precision residential and commercial cleaning with interactive 3D visuals, AI service concierge, instant quoting, automated follow-ups, referral rewards, and CRM dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
