@@ -43,10 +43,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeView, onNavigateView, onOp
             e.preventDefault();
             onNavigateView('landing', 'top');
           }}
-          className={`font-display text-xl font-bold tracking-tight whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded transition-colors ${
+          className={`inline-flex items-center gap-2.5 font-display text-xl font-bold tracking-tight whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded transition-colors ${
             overVideo ? 'text-white drop-shadow-[0_1px_6px_rgba(2,6,23,0.75)]' : 'text-slate-900'
           }`}
         >
+          <img src="/assets/aistudio/aetherlogo.png" alt="" aria-hidden="true" className="h-12 w-[4.5rem] object-contain" />
           AetherClean
         </a>
 

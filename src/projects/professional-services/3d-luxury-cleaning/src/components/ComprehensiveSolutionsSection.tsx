@@ -2,14 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import type { AddOnId, ServiceType } from '../types/cleaning';
+import type { AddOnId, CleaningFrequency, ServiceType } from '../types/cleaning';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export interface SolutionPreset {
   serviceType: ServiceType;
   sqft?: number;
+  rooms?: number;
   addOns?: AddOnId[];
+  frequency?: CleaningFrequency;
 }
 
 interface ComprehensiveSolutionsSectionProps {
@@ -257,7 +259,7 @@ export const ComprehensiveSolutionsSection: React.FC<ComprehensiveSolutionsSecti
           />
           <div className="flex items-center justify-center gap-3 mb-2">
             <span className="h-px w-8 bg-white/75" aria-hidden="true" />
-            <span className="text-xs font-semibold tracking-[0.18em] text-sky-200 drop-shadow-[0_2px_8px_rgba(2,6,23,0.9)]">
+            <span className="text-xs font-semibold tracking-[0.18em] text-white drop-shadow-[0_2px_8px_rgba(2,6,23,0.9)]">
               OUR SERVICES
             </span>
             <span className="h-px w-8 bg-white/75" aria-hidden="true" />
@@ -275,7 +277,6 @@ export const ComprehensiveSolutionsSection: React.FC<ComprehensiveSolutionsSecti
           </p>
         </div>
 
-        {/* Right-to-left hairline draw */}
         <div
           ref={lineRef}
           aria-hidden="true"

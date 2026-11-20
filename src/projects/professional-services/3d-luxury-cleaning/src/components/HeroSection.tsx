@@ -1,16 +1,23 @@
-import React from 'react';
-import { ArrowRight, MessageSquare } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { HeroImpact3DStrip } from './HeroImpact3DStrip';
 
 interface HeroSectionProps {
   onStartQuote: () => void;
-  onOpenConcierge: (prefill?: string) => void;
+  onVideoReady: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onStartQuote,
-  onOpenConcierge,
+  onVideoReady,
 }) => {
+  const [videoReady, setVideoReady] = useState(false);
+
+  const handleVideoReady = () => {
+    setVideoReady(true);
+    onVideoReady();
+  };
+
   return (
     <section
       id="top"
@@ -27,11 +34,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           }}
         >
           <video
-            src="/assets/aistudio/gemini_generated_video_b5e0d7a3_8dd040ee.mp4"
+            src="/aether-clean/assets/aistudio/gemini_generated_video_b5e0d7a3_8dd040ee.mp4"
             autoPlay
             muted
             loop
             playsInline
+            onCanPlay={handleVideoReady}
             aria-label="AetherClean specialist polishing panoramic glass window"
             className="w-full h-full object-cover object-center scale-[1.09]"
           />
@@ -43,13 +51,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           />
         </div>
 
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-0 z-[1] bg-slate-950 transition-opacity duration-500 ${videoReady ? 'opacity-0' : 'opacity-100'}`}
+        />
+
         {/* Clean Foreground Headline & Primary Actions over the video */}
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-24 pb-24 sm:pb-28 lg:pb-32">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold tracking-wide text-sky-200 mb-3">
-              San Francisco Bay Area · Residential &amp; Commercial Precision
-            </p>
-
             <h1
               className="font-display font-bold tracking-tight text-white leading-[1.06] mb-4"
               style={{ fontSize: 'clamp(2.25rem, 4.1vw, 3.65rem)', textWrap: 'balance' }}
@@ -57,12 +66,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               Spotless spaces, engineered around your schedule.
             </h1>
 
-            <p className="text-sm md:text-base text-slate-100/95 leading-relaxed max-w-lg mb-7">
-              Streak-free optical glass care and hospital-grade botanical sanitization by vetted W-2
-              teams—paired with instant AI quoting and live automated dispatch.
+            <p className="text-sm md:text-base text-slate-100/95 leading-relaxed max-w-lg">
+              Trusted local teams deliver detailed home and office cleaning, scheduled around your day.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="mt-9 flex -translate-x-5 justify-center">
               <button
                 type="button"
                 onClick={onStartQuote}
@@ -70,15 +78,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               >
                 <span>Get Instant Quote</span>
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => onOpenConcierge('Can you check open arrival windows this week?')}
-                className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-slate-900 bg-white/95 hover:bg-white rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              >
-                <MessageSquare className="w-4 h-4 text-sky-600" aria-hidden="true" />
-                <span>Ask AI Concierge</span>
               </button>
             </div>
           </div>

@@ -7,9 +7,9 @@ import {
   Home,
   MapPin,
   ShieldCheck,
-  Sparkles,
   Star,
   Users,
+  Wind,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -45,7 +45,7 @@ const ARC_MILESTONES: MilestoneItem[] = [
     value: 3680,
     unit: 'kits',
     offsetClass: 'translate-x-1',
-    icon: Sparkles,
+    icon: Wind,
   },
   {
     id: 'sqft',
@@ -286,21 +286,30 @@ export const Stage05ImpactSection: React.FC = () => {
       className="relative scroll-mt-20 pt-8 pb-24 sm:pb-28 bg-transparent"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Consistent Two-Container Architectural Pairing across Tablet, Laptop, and Desktop (md:grid-cols-12) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-8 items-stretch">
+        <div className="relative z-10 mx-auto mb-7 max-w-2xl py-3 text-center">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-x-12 -inset-y-4 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.52)_0%,rgba(15,23,42,0.22)_54%,transparent_80%)]"
+          />
+          <div className="mb-2 flex items-center justify-center gap-3">
+            <span className="h-px w-8 bg-white/75" aria-hidden="true" />
+            <p className="text-xs font-semibold tracking-[0.18em] text-white drop-shadow-[0_2px_8px_rgba(2,6,23,0.9)]">
+              COMPANY IMPACT &amp; TRUST
+            </p>
+            <span className="h-px w-8 bg-white/75" aria-hidden="true" />
+          </div>
+          <h2 className="font-display text-3xl font-bold tracking-tight text-white drop-shadow-[0_2px_14px_rgba(2,6,23,0.9)] sm:text-4xl">
+            Verified Operational Scale
+          </h2>
+          <p className="mt-2 text-sm font-medium text-white drop-shadow-[0_2px_10px_rgba(2,6,23,0.9)]">
+            Explore our service coverage, operating standards, and customer results.
+          </p>
+        </div>
+        {/* Consistent two-container layout on desktop; swipe cards on mobile. */}
+        <div className="-mx-4 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-12 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:gap-8">
           {/* CONTAINER 1 (Left · md:col-span-5): Diagonal-Chamfered White Scale & Footprint Card */}
-          <div className="md:col-span-5 relative bg-white border border-sky-100 shadow-sm rounded-tl-[2.5rem] rounded-br-[2.5rem] lg:rounded-tl-[2.75rem] lg:rounded-br-[2.75rem] rounded-tr-xl rounded-bl-xl p-5 md:p-6 lg:p-7 flex flex-col justify-between overflow-hidden">
+          <div className="w-[88vw] max-w-[440px] shrink-0 snap-center md:col-span-5 md:w-auto md:max-w-none md:snap-none relative bg-white border border-sky-100 shadow-sm rounded-tl-[2.5rem] rounded-br-[2.5rem] lg:rounded-tl-[2.75rem] lg:rounded-br-[2.75rem] rounded-tr-xl rounded-bl-xl p-5 md:p-6 lg:p-7 flex flex-col justify-between overflow-hidden">
             <div>
-              <p className="text-xs font-semibold tracking-wide text-sky-700 mb-1">
-                Stage 05 · Company Impact &amp; Trust
-              </p>
-              <h2
-                className="font-display text-xl lg:text-2xl font-bold tracking-tight text-slate-900 leading-snug"
-                style={{ textWrap: 'balance' }}
-              >
-                Verified Operational Scale
-              </h2>
-
               {/* Total Service Hubs Summary Strip separated by hairline rule */}
               <div className="mt-4 lg:mt-5 pb-4 lg:pb-5 border-b border-sky-100">
                 <div className="flex items-center justify-between gap-3">
@@ -426,7 +435,7 @@ export const Stage05ImpactSection: React.FC = () => {
           </div>
 
           {/* CONTAINER 2 (Right · md:col-span-7): Mirrored Ice-Blue Trust & Capacity Overview Container */}
-          <div className="md:col-span-7 relative bg-gradient-to-br from-[#F7FBFF] via-white to-[#EAF3FF] border border-sky-200/80 shadow-sm rounded-tr-[2.5rem] rounded-bl-[2.5rem] lg:rounded-tr-[2.75rem] lg:rounded-bl-[2.75rem] rounded-tl-xl rounded-br-xl p-5 md:p-6 lg:p-8 flex flex-col justify-between overflow-hidden">
+          <div className="w-[88vw] max-w-[500px] shrink-0 snap-center md:col-span-7 md:w-auto md:max-w-none md:snap-none relative bg-gradient-to-br from-[#F7FBFF] via-white to-[#EAF3FF] border border-sky-200/80 shadow-sm rounded-tr-[2.5rem] rounded-bl-[2.5rem] lg:rounded-tr-[2.75rem] lg:rounded-bl-[2.75rem] rounded-tl-xl rounded-br-xl p-5 md:p-6 lg:p-8 flex flex-col justify-between overflow-hidden">
             <div
               className="pointer-events-none absolute inset-0"
               style={{

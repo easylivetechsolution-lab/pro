@@ -4,68 +4,32 @@ import { mountHeroImpactScene } from '../lib/heroImpactScene';
 
 const AVATARS = [
   {
-    src: '/src/assets/images/client_avatar_one_1794998020316.jpg',
+    src: '/aether-clean/src/assets/images/client_avatar_one_1794998020316.jpg',
     alt: 'Verified client Elena',
     delay: '0s',
   },
   {
-    src: '/src/assets/images/client_avatar_two_1794998020186.jpg',
+    src: '/aether-clean/src/assets/images/client_avatar_two_1794998020186.jpg',
     alt: 'Verified client Marcus',
     delay: '0.35s',
   },
   {
-    src: '/src/assets/images/client_avatar_three_1794998021306.jpg',
+    src: '/aether-clean/src/assets/images/client_avatar_three_1794998021306.jpg',
     alt: 'Verified client Claire',
     delay: '0.7s',
   },
   {
-    src: '/src/assets/images/client_avatar_four_1794998021618.jpg',
+    src: '/aether-clean/src/assets/images/client_avatar_four_1794998021618.jpg',
     alt: 'Verified client David',
     delay: '1.05s',
   },
 ];
-
-function useAnimatedValue(target: number, decimals = 0, durationMs = 1500): string {
-  const [val, setVal] = useState(0);
-
-  useEffect(() => {
-    const prefersReduced =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      setVal(target);
-      return;
-    }
-
-    let rafId = 0;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / durationMs);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setVal(target * eased);
-      if (t < 1) {
-        rafId = requestAnimationFrame(tick);
-      } else {
-        setVal(target);
-      }
-    };
-    rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
-  }, [target, durationMs]);
-
-  return decimals > 0 ? val.toFixed(decimals) : Math.round(val).toString();
-}
 
 export const HeroImpact3DStrip: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const globeSlotRef = useRef<HTMLDivElement | null>(null);
   const starsSlotRef = useRef<HTMLDivElement | null>(null);
   const [webglFallback, setWebglFallback] = useState(false);
-
-  const worldwideCount = useAnimatedValue(80, 0, 1400);
-  const ratingValue = useAnimatedValue(4.9, 1, 1500);
-  const projectsCount = useAnimatedValue(8000, 0, 1750);
-  const satisfactionPct = useAnimatedValue(100, 0, 1600);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -112,10 +76,7 @@ export const HeroImpact3DStrip: React.FC = () => {
             <div className="col-span-7">
               <div className="rounded-xl sm:rounded-2xl bg-white border border-sky-100 p-4 sm:p-5 shadow-md">
                 <p className="font-display text-2xl sm:text-[28px] font-extrabold tracking-tight text-slate-900 leading-none tabular-nums">
-                  {worldwideCount}+ WORLDWIDE
-                </p>
-                <p className="mt-1.5 text-[11px] font-semibold tracking-[0.14em] text-slate-500 uppercase">
-                  WORLDWIDE
+                  80+ WORLDWIDE
                 </p>
                 <p className="mt-2.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
                   A cleaning company specializing in large facilities and expansive windows
@@ -151,7 +112,7 @@ export const HeroImpact3DStrip: React.FC = () => {
 
             <div className="my-2">
               <p className="font-display text-lg sm:text-[19px] font-semibold text-white tracking-tight tabular-nums">
-                {ratingValue} Average Rating
+                4.9 Average Rating
               </p>
             </div>
 
@@ -191,7 +152,7 @@ export const HeroImpact3DStrip: React.FC = () => {
             <div className="my-auto pt-4 grid grid-cols-2 divide-x divide-white/20 items-start">
               <div className="pr-3">
                 <p className="font-display text-2xl sm:text-[28px] lg:text-[30px] font-extrabold tracking-tight text-white leading-none tabular-nums">
-                  {projectsCount}+
+                  8,000+
                 </p>
                 <p className="mt-2 text-xs text-slate-200/95 leading-snug">
                   Completed Projects
@@ -200,7 +161,7 @@ export const HeroImpact3DStrip: React.FC = () => {
 
               <div className="pl-4">
                 <p className="font-display text-2xl sm:text-[28px] lg:text-[30px] font-extrabold tracking-tight text-white leading-none tabular-nums">
-                  {satisfactionPct}%
+                  100%
                 </p>
                 <p className="mt-2 text-xs text-slate-200/95 leading-snug">
                   Client&apos;s Satisfaction

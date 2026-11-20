@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { CalendarCheck2, ShieldCheck, Sparkles } from 'lucide-react';
+import { CalendarCheck2, ClipboardCheck, ShieldCheck } from 'lucide-react';
 
 const STEPS = [
   {
@@ -8,7 +8,7 @@ const STEPS = [
     description:
       'Pick a protocol or describe your home to our AI estimator. Lock in transparent pricing, arrival windows, and referral credits with instant confirmation.',
     detail: 'Automated SMS & email calendar hold sent immediately.',
-    image: '/src/assets/images/how_it_works_book_1794945444045.jpg',
+    image: '/aether-clean/src/assets/images/how_it_works_book_1794945444045.jpg',
     imageAlt: 'Client booking a cleaning schedule on a tablet in a sunlit modern apartment',
     icon: CalendarCheck2,
   },
@@ -18,9 +18,9 @@ const STEPS = [
     description:
       'A background-vetted W-2 crew arrives on time with HEPA vacuums, microfiber color-zoned cloths, and hospital-grade botanical solutions safe for kids and pets.',
     detail: '54-point room-by-room architectural checklist.',
-    image: '/src/assets/images/how_it_works_clean_1794945445424.jpg',
+    image: '/aether-clean/src/assets/images/how_it_works_clean_1794945445424.jpg',
     imageAlt: 'AetherClean specialist wiping a white marble kitchen island with a fresh microfiber cloth',
-    icon: Sparkles,
+    icon: ClipboardCheck,
   },
   {
     number: '03',
@@ -28,7 +28,7 @@ const STEPS = [
     description:
       'Walk into sunlit clarity. Receive automated inspection summaries, earn $35 referral rewards for every friend you invite, backed by our 48-hour re-clean pledge.',
     detail: 'Zero contracts. Pause or adjust frequency anytime.',
-    image: '/src/assets/images/how_it_works_relax_1794945446366.jpg',
+    image: '/aether-clean/src/assets/images/how_it_works_relax_1794945446366.jpg',
     imageAlt: 'Spotless sunlit living room with gleaming oak floors after cleaning',
     icon: ShieldCheck,
   },
@@ -78,7 +78,7 @@ export const ProcessTimeline: React.FC = () => {
           {/* Sticky left overview + Real High-Resolution Step Photography */}
           <div className="col-span-5 sticky top-16 sm:top-20 lg:top-24 rounded-xl sm:rounded-2xl border border-sky-100/90 bg-white/92 p-3 sm:p-5 lg:p-6 shadow-sm min-w-0">
             <p className="text-[10px] sm:text-xs font-semibold tracking-wide text-sky-700 mb-1.5 sm:mb-2">
-              Stage 03 · How It Works
+              How It Works
             </p>
             <h2
               className="font-display text-sm sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 mb-2 sm:mb-3 leading-tight"
@@ -114,22 +114,6 @@ export const ProcessTimeline: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-2.5 sm:mt-4 flex flex-wrap items-center gap-1.5 sm:gap-2">
-              {STEPS.map((s, idx) => (
-                <button
-                  key={s.number}
-                  type="button"
-                  onClick={() => setActiveStep(idx)}
-                  className={`px-2 py-1 sm:px-3 sm:py-1.5 text-[10px] sm:text-xs font-semibold rounded-md sm:rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
-                    activeStep === idx
-                      ? 'bg-sky-600 text-white'
-                      : 'bg-white text-slate-600 border border-sky-100 hover:border-sky-300'
-                  }`}
-                >
-                  {s.number}. {s.title.split(' ')[0]}
-                </button>
-              ))}
-            </div>
           </div>
 
           {/* Right 3-Step Scroll Timeline */}

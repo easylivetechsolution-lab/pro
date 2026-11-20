@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -132,6 +132,21 @@ export const BookingQuoteSection: React.FC<BookingQuoteSectionProps> = ({
   const [referralResult, setReferralResult] = useState<ReferralValidationResult | null>(null);
   const [referralChecking, setReferralChecking] = useState(false);
 
+  useEffect(() => {
+    const code = quoteConfig.referralCode?.trim().toUpperCase() || '';
+    if (!code) return;
+    setReferralInput(code);
+    if (/^PURE-[A-Z0-9]{2,}35$/.test(code)) {
+      setReferralResult({
+        valid: true,
+        code,
+        discountAmount: 35,
+        referrerName: 'AetherClean neighbor',
+        message: '$35 demo referral credit applied.',
+      });
+    }
+  }, [quoteConfig.referralCode]);
+
   const [selectedDate, setSelectedDate] = useState(upcomingDays[1]?.iso || upcomingDays[0]?.iso || '');
   const [selectedWindow, setSelectedWindow] = useState(TIME_WINDOWS[0].id);
 
@@ -210,25 +225,16 @@ export const BookingQuoteSection: React.FC<BookingQuoteSectionProps> = ({
       return;
     }
     setReferralChecking(true);
-    try {
-      const res = await fetch('/api/referrals/validate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: clean }),
-      });
-      const data = (await res.json()) as ReferralValidationResult;
-      setReferralResult(data);
-      onUpdateQuote({ referralCode: data.valid ? clean : '' });
-    } catch {
-      setReferralResult({
-        valid: false,
-        code: clean,
-        discountAmount: 0,
-        message: 'Could not verify code right now.',
-      });
-    } finally {
-      setReferralChecking(false);
-    }
+    const valid = /^PURE-[A-Z0-9]{2,}35$/.test(clean);
+    setReferralResult({
+      valid,
+      code: clean,
+      discountAmount: valid ? 35 : 0,
+      referrerName: valid ? 'AetherClean neighbor' : undefined,
+      message: valid ? '$35 demo referral credit applied.' : 'Use a valid AetherClean demo referral code.',
+    });
+    onUpdateQuote({ referralCode: valid ? clean : '' });
+    setReferralChecking(false);
   };
 
   const handlePrimaryCta = () => {
@@ -349,7 +355,26 @@ export const BookingQuoteSection: React.FC<BookingQuoteSectionProps> = ({
       id="quote"
       className="relative pt-10 pb-24 sm:pt-14 sm:pb-28 bg-transparent"
     >
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="mx-auto w-[80%] max-w-[51.2rem] px-4 sm:px-6">
+        <div className="relative z-10 mx-auto mb-7 max-w-2xl py-3 text-center">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-x-12 -inset-y-4 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.52)_0%,rgba(15,23,42,0.22)_54%,transparent_80%)]"
+          />
+          <div className="mb-2 flex items-center justify-center gap-3">
+            <span className="h-px w-8 bg-white/75" aria-hidden="true" />
+            <p className="text-xs font-semibold tracking-[0.18em] text-white drop-shadow-[0_2px_8px_rgba(2,6,23,0.9)]">
+              INSTANT BOOKING &amp; LIVE QUOTE
+            </p>
+            <span className="h-px w-8 bg-white/75" aria-hidden="true" />
+          </div>
+          <h2 className="font-display text-3xl font-bold tracking-tight text-white drop-shadow-[0_2px_14px_rgba(2,6,23,0.9)] sm:text-4xl">
+            Book Your Clean
+          </h2>
+          <p className="mt-2 text-sm font-medium text-white drop-shadow-[0_2px_10px_rgba(2,6,23,0.9)]">
+            Choose your service, select a time, and see your estimate update as you go.
+          </p>
+        </div>
         {/* Single Unified Two-Column Architectural Booking Sheet (~20% tighter footprint) */}
         <div className="rounded-2xl border border-sky-100/90 bg-white/95 shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-stretch">
           {/* LEFT WORKSPACE (lg:col-span-8) */}
@@ -432,7 +457,7 @@ export const BookingQuoteSection: React.FC<BookingQuoteSectionProps> = ({
             ) : (
               <>
                 {/* Top Header & Minimal Typographic Step Nav */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pb-3.5 mb-5 border-b border-sky-100">
+                <div className={`flex flex-wrap items-center gap-3 pb-3.5 mb-5 border-b border-sky-100 ${step === 1 ? 'justify-end' : 'justify-between'}`}>
                   {step > 1 ? (
                     <button
                       type="button"
@@ -447,11 +472,7 @@ export const BookingQuoteSection: React.FC<BookingQuoteSectionProps> = ({
                         {step === 2 ? 'Back to Service Selection' : 'Back to Time Selection'}
                       </span>
                     </button>
-                  ) : (
-                    <p className="text-xs font-semibold tracking-wide text-sky-700">
-                      Stage 04 · Instant Booking &amp; Live Quote
-                    </p>
-                  )}
+                  ) : null}
 
                   <div className="flex items-center gap-4 text-xs font-semibold">
                     {(

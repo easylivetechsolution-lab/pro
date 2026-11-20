@@ -3,10 +3,10 @@ import {
   ArrowUpRight,
   Calendar,
   CheckCircle2,
+  FileText,
   Loader2,
   MessageSquare,
   Send,
-  Sparkles,
   Tag,
   X,
 } from 'lucide-react';
@@ -89,7 +89,7 @@ export const AiConciergeDrawer: React.FC<AiConciergeDrawerProps> = ({
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'AI concierge error');
+      if (!res.ok) throw new Error(data.error || 'Chat error');
 
       const actions = (data.actions || []) as AiActionResult[];
       if (
@@ -114,7 +114,7 @@ export const AiConciergeDrawer: React.FC<AiConciergeDrawerProps> = ({
         },
       ]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unable to reach AI Concierge');
+      setError(err instanceof Error ? err.message : 'Unable to send your message. Please try again.');
     } finally {
       setSending(false);
     }
@@ -125,37 +125,39 @@ export const AiConciergeDrawer: React.FC<AiConciergeDrawerProps> = ({
       <button
         type="button"
         onClick={onOpen}
-        aria-label="Open AetherClean AI Concierge"
-        className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2.5 rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 hover:bg-slate-800 transition-transform duration-150 hover:-translate-y-0.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
+        aria-label="Open AetherClean chat"
+        className="fixed bottom-5 right-4 z-40 inline-flex items-center gap-2 rounded-full border border-sky-100/90 bg-white/90 py-2 pl-2 pr-3 text-xs font-semibold text-slate-900 shadow-[0_8px_28px_rgba(15,23,42,0.16)] backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-sky-200 hover:shadow-[0_12px_34px_rgba(14,165,233,0.22)] sm:right-5 sm:gap-2.5 sm:py-2.5 sm:pl-2.5 sm:pr-4 sm:text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
       >
-        <MessageSquare className="w-4 h-4 text-sky-400" aria-hidden="true" />
-        <span className="whitespace-nowrap">AI Concierge</span>
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-sky-400 text-white shadow-sm sm:h-9 sm:w-9">
+          <MessageSquare className="h-4 w-4" aria-hidden="true" />
+        </span>
+        <span className="whitespace-nowrap">Chat with us</span>
       </button>
     );
   }
 
   return (
     <aside
-      aria-label="AetherClean AI Concierge"
+      aria-label="Chat with AetherClean"
       className="fixed bottom-4 right-4 z-50 flex h-[min(620px,84vh)] w-[min(430px,calc(100vw-2rem))] flex-col rounded-2xl border border-sky-200 bg-white shadow-2xl shadow-slate-900/15 overflow-hidden"
     >
       {/* Header */}
       <div className="flex items-center justify-between gap-4 border-b border-sky-100 bg-[#F6FAFF] px-5 py-4">
         <div className="flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-600 text-white">
-            <Sparkles className="w-4 h-4" aria-hidden="true" />
+            <MessageSquare className="w-4 h-4" aria-hidden="true" />
           </div>
           <div>
             <h3 className="font-display text-sm font-bold text-slate-900">
-              AetherClean AI Concierge
+              Chat with AetherClean
             </h3>
-            <p className="text-xs text-slate-500">Quotes · Slots · Bookings · Referrals</p>
+            <p className="text-xs text-slate-500">Ask about services, prices, or bookings.</p>
           </div>
         </div>
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close AI Concierge"
+          aria-label="Close chat"
           className="rounded-lg p-1.5 text-slate-500 hover:bg-sky-100 hover:text-slate-900 cursor-pointer"
         >
           <X className="w-4 h-4" />
@@ -189,7 +191,7 @@ export const AiConciergeDrawer: React.FC<AiConciergeDrawerProps> = ({
                   >
                     <div className="flex items-center justify-between gap-2 font-semibold text-slate-900 mb-1.5">
                       <span className="flex items-center gap-1.5">
-                        {action.type === 'quote' && <Sparkles className="w-3.5 h-3.5 text-sky-600" />}
+                        {action.type === 'quote' && <FileText className="w-3.5 h-3.5 text-sky-600" />}
                         {action.type === 'availability' && <Calendar className="w-3.5 h-3.5 text-sky-600" />}
                         {(action.type === 'booking_created' || action.type === 'lead_created') && (
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
@@ -245,7 +247,7 @@ export const AiConciergeDrawer: React.FC<AiConciergeDrawerProps> = ({
         {sending && (
           <div className="flex items-center gap-2 text-xs text-slate-500 px-2">
             <Loader2 className="w-3.5 h-3.5 animate-spin text-sky-600" />
-            <span>AetherClean Concierge is thinking...</span>
+            <span>AetherClean is typing...</span>
           </div>
         )}
 

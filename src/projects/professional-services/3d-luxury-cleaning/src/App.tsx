@@ -8,19 +8,108 @@ import {
 } from './components/ComprehensiveSolutionsSection';
 import { CrmDashboard, type CrmSection } from './components/CrmDashboard';
 import { HeroSection } from './components/HeroSection';
+import {
+  ReferralProgramSection,
+  ServiceFAQSection,
+  ServiceStandardsSection,
+  TransparentPricingSection,
+  WhoWeAreSection,
+} from './components/GrowthSections';
 import { Navbar } from './components/Navbar';
 import { ProcessTimeline } from './components/ProcessTimeline';
 import { Stage05ImpactSection } from './components/Stage05ImpactSection';
+import { SiteFooter } from './components/SiteFooter';
 import { StoryWorldCanvas } from './components/StoryWorldCanvas';
+import { crmDemoSnapshot } from './lib/crmDemoSnapshot';
 import type { CrmSnapshot, QuoteInput } from './types/cleaning';
 
 export default function App() {
   const [activeView, setActiveView] = useState<'landing' | 'crm'>('landing');
+  const [heroVideoReady, setHeroVideoReady] = useState(false);
   const [crmInitialSection, setCrmInitialSection] = useState<CrmSection>('overview');
   const [conciergeOpen, setConciergeOpen] = useState(false);
   const [conciergePrefill, setConciergePrefill] = useState<string | undefined>(undefined);
   const storyProgressRef = useRef(0);
-  const trackedPageViewRef = useRef(false);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+    const previousStyles = {
+      htmlOverflowX: html.style.overflowX,
+      bodyOverflowX: body.style.overflowX,
+      htmlOverscroll: html.style.overscrollBehavior,
+      bodyOverscroll: body.style.overscrollBehavior,
+    };
+
+    // Keep mobile rubber-band and sideways overscroll from exposing the fixed story backdrop.
+    html.style.overflowX = 'clip';
+    body.style.overflowX = 'clip';
+    html.style.overscrollBehavior = 'none';
+    body.style.overscrollBehavior = 'none';
+
+    return () => {
+      html.style.overflowX = previousStyles.htmlOverflowX;
+      body.style.overflowX = previousStyles.bodyOverflowX;
+      html.style.overscrollBehavior = previousStyles.htmlOverscroll;
+      body.style.overscrollBehavior = previousStyles.bodyOverscroll;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const entryRules = [
+      { selector: '#process .col-span-5.sticky', direction: 'left' },
+      { selector: '#process .col-span-7.relative', direction: 'left' },
+      { selector: '#quote', direction: 'right' },
+      { selector: '#before-after', direction: 'right' },
+      { selector: '#referrals', direction: 'left' },
+      { selector: '#pricing', direction: 'right' },
+      { selector: '#who-we-are', direction: 'left' },
+      { selector: '#faq', direction: 'right' },
+      { selector: '#standards', direction: 'bottom' },
+    ] as const;
+    const targets = entryRules.flatMap(({ selector, direction }) => {
+      const target = document.querySelector<HTMLElement>(selector);
+      if (!target) return [];
+      target.dataset.scrollEnter = direction;
+      return [target];
+    });
+
+    if (!targets.length || typeof IntersectionObserver === 'undefined') {
+      targets.forEach((target) => delete target.dataset.scrollEnter);
+      return;
+    }
+
+    const timers = new Set<number>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const target = entry.target as HTMLElement;
+          target.classList.add('scroll-entered');
+          observer.unobserve(target);
+          const timer = window.setTimeout(() => {
+            target.classList.remove('scroll-entered');
+            delete target.dataset.scrollEnter;
+            timers.delete(timer);
+          }, 760);
+          timers.add(timer);
+        });
+      },
+      { threshold: 0.01, rootMargin: '0px 0px -6% 0px' },
+    );
+
+    targets.forEach((target) => observer.observe(target));
+    return () => {
+      observer.disconnect();
+      timers.forEach((timer) => window.clearTimeout(timer));
+      targets.forEach((target) => {
+        target.classList.remove('scroll-entered');
+        delete target.dataset.scrollEnter;
+      });
+    };
+  }, [activeView]);
 
   const initialRefCode =
     typeof window !== 'undefined'
@@ -36,61 +125,8 @@ export default function App() {
     referralCode: initialRefCode,
   });
 
-  const [crmSnapshot, setCrmSnapshot] = useState<CrmSnapshot | null>(null);
-  const [crmLoading, setCrmLoading] = useState(false);
-  const [crmError, setCrmError] = useState<string | null>(null);
-  const [liveConnected, setLiveConnected] = useState(false);
-
-  const fetchCrm = useCallback(async () => {
-    setCrmLoading(true);
-    setCrmError(null);
-    try {
-      const res = await fetch('/api/crm');
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to load CRM');
-      setCrmSnapshot(data as CrmSnapshot);
-    } catch (err) {
-      setCrmError(err instanceof Error ? err.message : 'Unable to fetch CRM');
-    } finally {
-      setCrmLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchCrm();
-
-    if (!trackedPageViewRef.current) {
-      trackedPageViewRef.current = true;
-      fetch('/api/analytics/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event: 'pageview',
-          source: initialRefCode ? 'Referral' : 'Organic Search',
-        }),
-      }).catch(() => {});
-    }
-
-    if (typeof EventSource === 'undefined') return;
-    const source = new EventSource('/api/crm/stream');
-    source.onopen = () => setLiveConnected(true);
-    source.onmessage = (event) => {
-      try {
-        const next = JSON.parse(event.data) as CrmSnapshot;
-        setCrmSnapshot(next);
-        setLiveConnected(true);
-      } catch {
-        // ignore malformed frame
-      }
-    };
-    source.onerror = () => {
-      setLiveConnected(false);
-    };
-
-    return () => {
-      source.close();
-    };
-  }, [fetchCrm, initialRefCode]);
+  const [crmSnapshot, setCrmSnapshot] = useState<CrmSnapshot>(crmDemoSnapshot);
+  const resetCrmDemo = useCallback(() => setCrmSnapshot({ ...crmDemoSnapshot }), []);
 
   const scrollToElement = (id: string) => {
     setTimeout(() => {
@@ -104,7 +140,7 @@ export default function App() {
     if (view === 'landing' && sectionId) {
       scrollToElement(sectionId);
     } else if (view === 'crm') {
-      fetchCrm();
+      setHeroVideoReady(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -120,28 +156,21 @@ export default function App() {
   };
 
   const handleStartQuote = () => {
-    fetch('/api/analytics/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ event: 'quote_interaction', source: 'Quote Form' }),
-    }).catch(() => {});
     handleNavigateView('landing', 'quote');
   };
 
   const handleSelectSolution = (preset: SolutionPreset) => {
     const nextSqft = preset.sqft ?? quoteConfig.sqft;
+    const nextRooms = preset.rooms ?? quoteConfig.rooms;
     const nextAddOns = preset.addOns ?? quoteConfig.addOns;
     setQuoteConfig((prev) => ({
       ...prev,
       serviceType: preset.serviceType,
       sqft: nextSqft,
+      rooms: nextRooms,
       addOns: nextAddOns,
+      frequency: preset.frequency ?? prev.frequency,
     }));
-    fetch('/api/analytics/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ event: 'quote_interaction', source: 'Pricing Tier' }),
-    }).catch(() => {});
     handleNavigateView('landing', 'quote');
   };
 
@@ -154,11 +183,11 @@ export default function App() {
       <div className="min-h-screen bg-[#F4F8FD] text-slate-900">
         <CrmDashboard
           snapshot={crmSnapshot}
-          loading={crmLoading}
-          liveConnected={liveConnected}
-          error={crmError}
+          loading={false}
+          error={null}
           initialSection={crmInitialSection}
-          onRefresh={fetchCrm}
+          onRefresh={resetCrmDemo}
+          onSnapshotChange={setCrmSnapshot}
           onBackToSite={() => handleNavigateView('landing', 'top')}
         />
       </div>
@@ -171,6 +200,7 @@ export default function App() {
       <StoryWorldCanvas
         activeView={activeView}
         scrollProgressRef={storyProgressRef}
+        backgroundReady={heroVideoReady}
       />
 
       <div className="relative z-10 flex min-h-screen flex-col">
@@ -183,7 +213,7 @@ export default function App() {
         <main className="flex-1">
           <HeroSection
             onStartQuote={handleStartQuote}
-            onOpenConcierge={handleOpenConcierge}
+            onVideoReady={() => setHeroVideoReady(true)}
           />
 
           <ComprehensiveSolutionsSection onSelectSolution={handleSelectSolution} />
@@ -195,7 +225,7 @@ export default function App() {
             onUpdateQuote={handleUpdateQuote}
             onOpenConcierge={handleOpenConcierge}
             onOpenCrm={() => handleOpenCrm('overview')}
-            onDataMutated={fetchCrm}
+            onDataMutated={resetCrmDemo}
           />
 
           <Stage05ImpactSection />
@@ -209,68 +239,24 @@ export default function App() {
               })
             }
           />
+
+          <ReferralProgramSection
+            onApplyCode={(code) => {
+              setQuoteConfig((prev) => ({ ...prev, referralCode: code }));
+              handleNavigateView('landing', 'quote');
+            }}
+          />
+
+          <TransparentPricingSection onSelectPlan={handleSelectSolution} />
+
+          <WhoWeAreSection />
+
+          <ServiceFAQSection onAskConcierge={() => handleOpenConcierge('I have a question about AetherClean services, coverage, or scheduling.')} />
+
+          <ServiceStandardsSection />
         </main>
 
-        <footer className="relative border-t border-sky-100/80 bg-white/90 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
-            <div className="flex items-center gap-3">
-              <span className="font-display text-base font-bold text-slate-900">
-                AetherClean
-              </span>
-              <span aria-hidden="true">·</span>
-              <span>San Francisco Bay Area Residential &amp; Commercial Sanitization</span>
-            </div>
-            <div className="flex flex-wrap items-center gap-5">
-              <a
-                href="#solutions"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavigateView('landing', 'solutions');
-                }}
-                className="hover:text-sky-700 transition-colors"
-              >
-                Services
-              </a>
-              <a
-                href="#quote"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavigateView('landing', 'quote');
-                }}
-                className="hover:text-sky-700 transition-colors"
-              >
-                Instant Quote
-              </a>
-              <a
-                href="#impact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavigateView('landing', 'impact');
-                }}
-                className="hover:text-sky-700 transition-colors"
-              >
-                Impact &amp; Trust
-              </a>
-              <a
-                href="#before-after"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavigateView('landing', 'before-after');
-                }}
-                className="hover:text-sky-700 transition-colors"
-              >
-                Before &amp; After
-              </a>
-              <button
-                type="button"
-                onClick={() => handleOpenCrm('overview')}
-                className="text-slate-500 hover:text-sky-700 transition-colors cursor-pointer"
-              >
-                Owner CRM
-              </button>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter onNavigate={(sectionId) => handleNavigateView('landing', sectionId)} />
       </div>
 
       <AiConciergeDrawer
@@ -281,7 +267,7 @@ export default function App() {
         onApplyQuote={(patch) => {
           setQuoteConfig((prev) => ({ ...prev, ...patch }));
         }}
-        onDataMutated={fetchCrm}
+        onDataMutated={resetCrmDemo}
       />
     </div>
   );

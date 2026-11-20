@@ -19,11 +19,11 @@ import {
   Mail,
   MailCheck,
   Menu,
+  MessageSquareText,
   Plus,
   RefreshCw,
   Rocket,
   Search,
-  Sparkles,
   Star,
   Users,
   X,
@@ -37,7 +37,6 @@ import type {
   ServiceType,
 } from '../types/cleaning';
 import { SERVICE_CATALOG } from '../lib/pricing';
-import { CrmThreeAnalytics } from './CrmThreeAnalytics';
 import {
   LeadSourcesDonut,
   Sparkline,
@@ -57,25 +56,25 @@ export type CrmSection =
 interface CrmDashboardProps {
   snapshot: CrmSnapshot | null;
   loading: boolean;
-  liveConnected: boolean;
   error: string | null;
   initialSection?: CrmSection;
   onRefresh: () => void;
+  onSnapshotChange: React.Dispatch<React.SetStateAction<CrmSnapshot>>;
   onBackToSite: () => void;
 }
 
 const SERVICE_THUMBNAILS: Record<ServiceType, string> = {
-  home: '/src/assets/images/how_it_works_relax_1794945446366.jpg',
-  office: '/src/assets/images/glass_after_1794945448175.jpg',
-  deep: '/src/assets/images/how_it_works_clean_1794945445424.jpg',
-  'move-out': '/src/assets/images/kitchen_after_1794945446390.jpg',
+  home: '/aether-clean/src/assets/images/how_it_works_relax_1794945446366.jpg',
+  office: '/aether-clean/src/assets/images/glass_after_1794945448175.jpg',
+  deep: '/aether-clean/src/assets/images/how_it_works_clean_1794945445424.jpg',
+  'move-out': '/aether-clean/src/assets/images/kitchen_after_1794945446390.jpg',
 };
 
 const AVATARS = [
-  '/src/assets/images/client_avatar_one_1794998020316.jpg',
-  '/src/assets/images/client_avatar_two_1794998020186.jpg',
-  '/src/assets/images/client_avatar_three_1794998021306.jpg',
-  '/src/assets/images/client_avatar_four_1794998021618.jpg',
+  '/aether-clean/src/assets/images/client_avatar_one_1794998020316.jpg',
+  '/aether-clean/src/assets/images/client_avatar_two_1794998020186.jpg',
+  '/aether-clean/src/assets/images/client_avatar_three_1794998021306.jpg',
+  '/aether-clean/src/assets/images/client_avatar_four_1794998021618.jpg',
 ];
 
 const NAV_ITEMS: {
@@ -96,10 +95,10 @@ const NAV_ITEMS: {
 export const CrmDashboard: React.FC<CrmDashboardProps> = ({
   snapshot,
   loading,
-  liveConnected,
   error,
   initialSection = 'overview',
   onRefresh,
+  onSnapshotChange,
   onBackToSite,
 }) => {
   const [section, setSection] = useState<CrmSection>(initialSection);
@@ -301,12 +300,20 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
   const handleUpdateLeadStatus = async (leadId: string, status: LeadStatus) => {
     setBusyId(leadId);
     try {
-      await fetch(`/api/leads/${leadId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status }),
+      onSnapshotChange((current) => {
+        const leads = current.leads.map((lead) => lead.id === leadId
+          ? { ...lead, status, updatedAt: new Date().toISOString() }
+          : lead);
+        return {
+          ...current,
+          leads,
+          metrics: {
+            ...current.metrics,
+            pipelineValue: leads.filter((lead) => lead.status !== 'Converted' && lead.status !== 'Archived')
+              .reduce((total, lead) => total + lead.estimatedPrice, 0),
+          },
+        };
       });
-      onRefresh();
     } finally {
       setBusyId(null);
     }
@@ -319,12 +326,36 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
   ) => {
     setBusyId(leadId);
     try {
-      await fetch(`/api/leads/${leadId}/followup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action, followUpId }),
-      });
-      onRefresh();
+      onSnapshotChange((current) => ({
+        ...current,
+        leads: current.leads.map((lead) => {
+          if (lead.id !== leadId) return lead;
+          const now = new Date().toISOString();
+          if (action === 'mark_sent') {
+            return {
+              ...lead,
+              updatedAt: now,
+              followUps: lead.followUps.map((step) => step.id === followUpId
+                ? { ...step, status: 'Sent' as const, sentAt: now }
+                : step),
+            };
+          }
+          return {
+            ...lead,
+            status: 'Follow-Up Sent' as const,
+            updatedAt: now,
+            followUps: [...lead.followUps, {
+              id: `demo-followup-${Date.now()}`,
+              channel: 'Email' as const,
+              timing: 'Instant Confirmation',
+              subject: `Your AetherClean proposal for ${lead.address}`,
+              body: `AetherClean is ready to help with your ${serviceTitle(lead.serviceType)} service.`,
+              status: 'Sent' as const,
+              sentAt: now,
+            }],
+          };
+        }),
+      }));
     } finally {
       setBusyId(null);
     }
@@ -333,8 +364,12 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
   const handleConvertLead = async (leadId: string) => {
     setBusyId(leadId);
     try {
-      await fetch(`/api/leads/${leadId}/convert`, { method: 'POST' });
-      onRefresh();
+      onSnapshotChange((current) => ({
+        ...current,
+        leads: current.leads.map((lead) => lead.id === leadId
+          ? { ...lead, status: 'Converted' as const, updatedAt: new Date().toISOString() }
+          : lead),
+      }));
       setSection('bookings');
     } finally {
       setBusyId(null);
@@ -342,32 +377,39 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
   };
 
   const handleBookingStatusChange = async (bookingId: string, status: BookingStatus) => {
-    await fetch(`/api/bookings/${bookingId}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status }),
+    onSnapshotChange((current) => {
+      const bookings = current.bookings.map((booking) => booking.id === bookingId ? { ...booking, status } : booking);
+      return {
+        ...current,
+        bookings,
+        metrics: {
+          ...current.metrics,
+          activeBookings: bookings.filter((booking) => booking.status === 'Scheduled' || booking.status === 'In Progress').length,
+        },
+      };
     });
-    onRefresh();
   };
 
   const handleMarkNotificationsRead = async (id?: string) => {
-    await fetch('/api/notifications/read', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id }),
+    onSnapshotChange((current) => {
+      const notifications = current.notifications.map((notification) => !id || notification.id === id
+        ? { ...notification, read: true }
+        : notification);
+      return {
+        ...current,
+        notifications,
+        metrics: { ...current.metrics, unreadNotifications: notifications.filter((item) => !item.read).length },
+      };
     });
-    onRefresh();
   };
 
   const handleToggleAutomation = async (ruleId: string, enabled: boolean) => {
     setBusyId(ruleId);
     try {
-      await fetch(`/api/automations/${ruleId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ enabled }),
-      });
-      onRefresh();
+      onSnapshotChange((current) => ({
+        ...current,
+        automationRules: current.automationRules.map((rule) => rule.id === ruleId ? { ...rule, enabled } : rule),
+      }));
     } finally {
       setBusyId(null);
     }
@@ -378,10 +420,10 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
     if (!campTitle.trim()) return;
     setCampSubmitting(true);
     try {
-      const res = await fetch('/api/campaigns', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      onSnapshotChange((current) => ({
+        ...current,
+        campaigns: [...current.campaigns, {
+          id: `demo-campaign-${Date.now()}`,
           title: campTitle.trim(),
           channel: campChannel,
           targetStartDate: campStart,
@@ -390,26 +432,21 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
           budget: campBudget,
           status: 'Planned',
           notes: campNotes.trim() || 'Scheduled around high-converting Bay Area booking days.',
-        }),
-      });
-      if (res.ok) {
-        setCampTitle('');
-        setCampNotes('');
-        setShowCampaignForm(false);
-        onRefresh();
-      }
+        }],
+      }));
+      setCampTitle('');
+      setCampNotes('');
+      setShowCampaignForm(false);
     } finally {
       setCampSubmitting(false);
     }
   };
 
   const handleCampaignStatus = async (id: string, status: CampaignPlan['status']) => {
-    await fetch(`/api/campaigns/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status }),
-    });
-    onRefresh();
+    onSnapshotChange((current) => ({
+      ...current,
+      campaigns: current.campaigns.map((campaign) => campaign.id === id ? { ...campaign, status } : campaign),
+    }));
   };
 
   const handleGenerateReferralPartner = async (e: React.FormEvent) => {
@@ -418,19 +455,27 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
     setRefCreating(true);
     setRefFeedback(null);
     try {
-      const res = await fetch('/api/referrals/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: refName.trim(), email: refEmail.trim() }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Could not issue referral code');
-      setRefFeedback(`Issued partner link for ${data.name}: ${data.referralCode}`);
+      const name = refName.trim();
+      const referralCode = `AETHER-${name.replace(/[^a-z0-9]/gi, '').slice(0, 6).toUpperCase()}-${Math.floor(100 + Math.random() * 900)}`;
+      onSnapshotChange((current) => ({
+        ...current,
+        customers: [...current.customers, {
+          id: `demo-customer-${Date.now()}`,
+          name,
+          email: refEmail.trim(),
+          phone: 'Not provided',
+          address: 'San Francisco Bay Area',
+          referralCode,
+          referralsCount: 0,
+          referralCredits: 0,
+          totalSpent: 0,
+          bookingsCount: 0,
+          joinedAt: new Date().toISOString(),
+        }],
+      }));
+      setRefFeedback(`Issued demo partner link for ${name}: ${referralCode}`);
       setRefName('');
       setRefEmail('');
-      onRefresh();
-    } catch (err) {
-      setRefFeedback(err instanceof Error ? err.message : 'Unable to generate code');
     } finally {
       setRefCreating(false);
     }
@@ -441,16 +486,7 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
     if (!copilotPrompt.trim()) return;
     setCopilotLoading(true);
     try {
-      const res = await fetch('/api/ai/crm-copilot', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: copilotPrompt }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Copilot failed');
-      setCopilotResponse(data.analysis);
-    } catch (err) {
-      setCopilotResponse(err instanceof Error ? err.message : 'Unable to run copilot');
+      setCopilotResponse(`Demo insight: ${snapshot?.metrics.totalLeads ?? 0} leads and ${snapshot?.metrics.activeBookings ?? 0} active bookings are currently in this workspace. Review high-value follow-ups to prioritize the next conversion.`);
     } finally {
       setCopilotLoading(false);
     }
@@ -463,27 +499,39 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
     const names = ['Liam Thornton', 'Sofia Alvarez', 'Noah Castellano', 'Maya Okafor'];
     const pick = names[Math.floor(Math.random() * names.length)];
     const slug = pick.toLowerCase().replace(/\s+/g, '.');
-    try {
-      await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: pick,
-          email: `${slug}@bayclients.co`,
-          address: 'Marina District, San Francisco',
-          serviceType,
-          sqft: 1800 + Math.floor(Math.random() * 1400),
-          rooms: 4,
-          frequency: 'bi-weekly',
-          addOns: ['interior-windows'],
-          notes: 'Live website quote intake captured in CRM.',
-          source: 'Quote Form',
-        }),
-      });
-      onRefresh();
-    } finally {
-      setAddingQuickLead(false);
-    }
+    const now = new Date().toISOString();
+    const sqft = 1800 + Math.floor(Math.random() * 1400);
+    const lead: LeadRecord = {
+      id: `demo-lead-${Date.now()}`,
+      name: pick,
+      email: `${slug}@bayclients.co`,
+      phone: 'Not provided',
+      address: 'Marina District, San Francisco',
+      serviceType,
+      sqft,
+      rooms: 4,
+      frequency: 'bi-weekly',
+      addOns: ['interior-windows'],
+      preferredDate: new Date(Date.now() + 86400000 * 3).toISOString().slice(0, 10),
+      preferredWindow: '09:00 AM - 12:00 PM',
+      notes: 'Live website quote intake captured in CRM.',
+      estimatedPrice: 285,
+      status: 'New',
+      source: 'Quote Form',
+      followUps: [],
+      createdAt: now,
+      updatedAt: now,
+    };
+    onSnapshotChange((current) => ({
+      ...current,
+      leads: [lead, ...current.leads],
+      metrics: {
+        ...current.metrics,
+        totalLeads: current.metrics.totalLeads + 1,
+        pipelineValue: current.metrics.pipelineValue + lead.estimatedPrice,
+      },
+    }));
+    setAddingQuickLead(false);
   };
 
   const unreadCount = snapshot?.metrics.unreadNotifications ?? 0;
@@ -554,15 +602,13 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
       {/* Sidebar Bottom Live Status & Back to Website */}
       <div className="pt-4 mt-6 border-t border-slate-800/80 space-y-2.5">
         <div className="px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-800/80">
-          <p className="text-[11px] font-medium text-slate-400">Website Sync</p>
+          <p className="text-[11px] font-medium text-slate-400">Workspace Mode</p>
           <p className="text-xs font-semibold text-white mt-0.5 flex items-center gap-1.5">
             <span
-              className={`h-2 w-2 rounded-full ${
-                liveConnected ? 'bg-emerald-400' : 'bg-amber-400'
-              }`}
+              className="h-2 w-2 rounded-full bg-sky-400"
               aria-hidden="true"
             />
-            <span>{liveConnected ? 'SSE Live Connected' : 'Sync Polling'}</span>
+            <span>Demo Data</span>
           </p>
         </div>
 
@@ -1108,7 +1154,7 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
                   <div className="mt-4 pt-4 border-t border-slate-100">
                     <form onSubmit={handleRunCopilot} className="flex flex-col sm:flex-row gap-2">
                       <div className="relative flex-1">
-                        <Sparkles className="w-3.5 h-3.5 text-sky-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <MessageSquareText className="w-3.5 h-3.5 text-sky-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                         <input
                           type="text"
                           value={copilotPrompt}
@@ -1567,7 +1613,7 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
                             onClick={() => handleFollowUpAction(selectedLead.id, 'generate')}
                             className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-700 hover:underline cursor-pointer"
                           >
-                            <Sparkles className="w-3.5 h-3.5" />
+                            <Mail className="w-3.5 h-3.5" />
                             <span>
                               {selectedLead.followUps.length > 0
                                 ? 'Regenerate Drafts'
@@ -2147,8 +2193,6 @@ export const CrmDashboard: React.FC<CrmDashboardProps> = ({
                 </div>
               </div>
 
-              {/* Three.js Interactive 3D Pipeline vs Revenue Deck */}
-              <CrmThreeAnalytics snapshot={snapshot} />
             </div>
           )}
 

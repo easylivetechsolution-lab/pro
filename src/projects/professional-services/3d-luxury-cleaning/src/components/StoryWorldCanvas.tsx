@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 interface StoryWorldCanvasProps {
   activeView: 'landing' | 'crm';
   scrollProgressRef: React.MutableRefObject<number>;
+  backgroundReady: boolean;
 }
 
 const _pointerVec = new THREE.Vector2(0, 0);
@@ -178,6 +179,7 @@ const FullscreenSpaceStage: React.FC<FullscreenSpaceStageProps> = ({
 export const StoryWorldCanvas: React.FC<StoryWorldCanvasProps> = ({
   activeView,
   scrollProgressRef,
+  backgroundReady,
 }) => {
   const [webglActive, setWebglActive] = useState(true);
   const bgImgRefs = useRef<Array<HTMLImageElement | null>>([]);
@@ -244,7 +246,7 @@ export const StoryWorldCanvas: React.FC<StoryWorldCanvasProps> = ({
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-0 pointer-events-none select-none bg-slate-900 overflow-hidden"
+      className={`fixed inset-0 z-0 pointer-events-none select-none bg-slate-900 overflow-hidden transition-opacity duration-500 ${backgroundReady ? 'opacity-100' : 'opacity-0'}`}
     >
       {/* Persistent CSS architectural backdrop so scrolling/WebGL transitions never flash white */}
       {STORY_SPACES.map((stage, index) => (
