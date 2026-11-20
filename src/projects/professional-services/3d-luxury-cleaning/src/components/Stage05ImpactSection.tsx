@@ -25,9 +25,9 @@ interface MilestoneItem {
 const ARC_MILESTONES: MilestoneItem[] = [
   {
     id: 'districts',
-    label: 'Districts Covered',
-    value: 159,
-    unit: 'zones',
+    label: 'Bay Area Communities',
+    value: 8,
+    unit: 'locations',
     offsetClass: 'translate-x-7 sm:translate-x-8',
     icon: MapPin,
   },
@@ -310,7 +310,7 @@ export const Stage05ImpactSection: React.FC = () => {
           {/* CONTAINER 1 (Left · md:col-span-5): Diagonal-Chamfered White Scale & Footprint Card */}
           <div className="w-[88vw] max-w-[440px] shrink-0 snap-center md:col-span-5 md:w-auto md:max-w-none md:snap-none relative bg-white border border-sky-100 shadow-sm rounded-tl-[2.5rem] rounded-br-[2.5rem] lg:rounded-tl-[2.75rem] lg:rounded-br-[2.75rem] rounded-tr-xl rounded-bl-xl p-5 md:p-6 lg:p-7 flex flex-col justify-between overflow-hidden">
             <div>
-              {/* Total Service Hubs Summary Strip separated by hairline rule */}
+              {/* Local service footprint */}
               <div className="mt-4 lg:mt-5 pb-4 lg:pb-5 border-b border-sky-100">
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
@@ -319,33 +319,17 @@ export const Stage05ImpactSection: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-[11px] lg:text-xs font-medium text-slate-500 whitespace-nowrap">
-                        Total Service Hubs
+                        Bay Area Communities
                       </p>
                       <p className="font-display text-2xl lg:text-3xl font-extrabold text-sky-700 tabular-nums leading-none mt-0.5">
-                        <AnimatedNumber value={98} elapsedMs={elapsedMs} duration={1050} />
+                        <AnimatedNumber value={8} elapsedMs={elapsedMs} duration={1050} />
                       </p>
                     </div>
                   </div>
 
                   <div className="text-right text-[11px] lg:text-xs text-slate-500 space-y-0.5 tabular-nums shrink-0">
-                    <p>
-                      Residential{' '}
-                      <span className="font-semibold text-slate-900">
-                        <AnimatedNumber value={49} elapsedMs={elapsedMs} duration={1000} delay={60} />
-                      </span>
-                    </p>
-                    <p>
-                      Commercial{' '}
-                      <span className="font-semibold text-slate-900">
-                        <AnimatedNumber value={30} elapsedMs={elapsedMs} duration={1000} delay={120} />
-                      </span>
-                    </p>
-                    <p>
-                      Partners{' '}
-                      <span className="font-semibold text-slate-900">
-                        <AnimatedNumber value={19} elapsedMs={elapsedMs} duration={1000} delay={180} />
-                      </span>
-                    </p>
+                    <p className="max-w-28 whitespace-normal">Residential &amp; commercial</p>
+                    <p className="font-semibold text-slate-900">Local service area</p>
                   </div>
                 </div>
               </div>

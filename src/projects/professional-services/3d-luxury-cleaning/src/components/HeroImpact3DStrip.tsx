@@ -52,7 +52,7 @@ export const HeroImpact3DStrip: React.FC = () => {
         ref={containerRef}
         className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-stretch"
       >
-        {/* CARD 1: 80+ WORLDWIDE + Animated Three.js Global Network Earth */}
+        {/* CARD 1: Bay Area service footprint */}
         <div className="sm:col-span-2 lg:col-span-6 relative rounded-2xl">
           <div
             aria-hidden="true"
@@ -67,7 +67,7 @@ export const HeroImpact3DStrip: React.FC = () => {
             <div className="col-span-5 flex items-center justify-center">
               <div
                 ref={globeSlotRef}
-                aria-label="Interactive 3D rotating Earth showing global cleaning coverage"
+                aria-label="Decorative animated coverage globe"
                 className="w-full aspect-square max-h-[178px] sm:max-h-[196px]"
               />
             </div>
@@ -76,10 +76,10 @@ export const HeroImpact3DStrip: React.FC = () => {
             <div className="col-span-7">
               <div className="rounded-xl sm:rounded-2xl bg-white border border-sky-100 p-4 sm:p-5 shadow-md">
                 <p className="font-display text-2xl sm:text-[28px] font-extrabold tracking-tight text-slate-900 leading-none tabular-nums">
-                  80+ WORLDWIDE
+                  8 BAY AREA COMMUNITIES
                 </p>
                 <p className="mt-2.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
-                  A cleaning company specializing in large facilities and expansive windows
+                  Local residential and commercial cleaning across the communities we serve.
                 </p>
               </div>
             </div>
