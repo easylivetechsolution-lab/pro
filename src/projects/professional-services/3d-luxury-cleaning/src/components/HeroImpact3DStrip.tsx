@@ -75,11 +75,11 @@ export const HeroImpact3DStrip: React.FC = () => {
             {/* Right crisp white inner card */}
             <div className="col-span-7">
               <div className="rounded-xl sm:rounded-2xl bg-white border border-sky-100 p-4 sm:p-5 shadow-md">
-                <p className="font-display text-2xl sm:text-[28px] font-extrabold tracking-tight text-slate-900 leading-none tabular-nums">
+                <p className="font-display-luxury text-[21px] sm:text-2xl font-semibold tracking-tight text-slate-900 leading-[1.08]">
                   8 BAY AREA COMMUNITIES
                 </p>
                 <p className="mt-2.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
-                  Local residential and commercial cleaning across the communities we serve.
+                  Local residential and commercial cleaning throughout the Bay Area.
                 </p>
               </div>
             </div>
